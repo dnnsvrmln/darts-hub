@@ -1,20 +1,26 @@
 const { initializeApp, applicationDefault, cert } = require('firebase-admin/app');
 const { getFirestore, Timestamp, FieldValue } = require('firebase-admin/firestore');
+import { getDatabase, ref, set } from "firebase/database";
 
-initializeApp({
-    credential: applicationDefault()
-});
+const firebaseConfig = {
 
-const db = getFirestore();
+    apiKey: "AIzaSyC0jI1vR0Cz8wsxiEmbrNVi9tv-sY39A9A",
+    authDomain: "darts-hub.firebaseapp.com",
+    databaseURL: "https://darts-hub-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "darts-hub",
+    storageBucket: "darts-hub.appspot.com",
+    messagingSenderId: "887947030804",
+    appId: "1:887947030804:web:e36e802ba42be932cf5201"
 
-async function insertData() {
-    const docRef = db.collection('users').doc('alovelace');
+};
 
-    await docRef.set({
-        first: 'Ada',
-        last: 'Lovelace',
-        born: 1815
+const app = initializeApp(firebaseConfig);
+const database = getDatabase(app);
+
+
+export default function writeUserData(userId: number, name: string, email: string) {
+    set(ref(database, 'users/' + userId), {
+        username: name,
+        email: email,
     });
 }
-
-module.exports = { add };
