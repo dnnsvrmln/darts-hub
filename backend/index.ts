@@ -8,7 +8,7 @@ const app: Express = express();
 const port = 3000;
 
 app.get('/', (req: Request, res: Response) => {
-    writeUserData(1, "Joep Laarhoven", "laarhoven.joep@gmail.com")
+    writeUserData()
     res.send('Express + TypeScript Server');
 });
 
