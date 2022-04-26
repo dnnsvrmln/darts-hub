@@ -1,5 +1,6 @@
-const { initializeApp, applicationDefault, cert } = require('firebase-admin/app');
-const { getFirestore, Timestamp, FieldValue } = require('firebase-admin/firestore');
+const { initializeApp } = require('firebase/app');
+const { getFirestore } = require('firebase/firestore/lite');
+
 import { getDatabase, ref, set } from "firebase/database";
 
 const firebaseConfig = {
@@ -15,8 +16,7 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const database = getDatabase(app);
-
+const database = getFirestore(app);
 
 export default function writeUserData(userId: number, name: string, email: string) {
     set(ref(database, 'users/' + userId), {
