@@ -2,7 +2,7 @@ import express, { Express } from 'express';
 import dotenv from 'dotenv';
 import {graphqlHTTP} from "express-graphql";
 import {schema} from "./graphQL/schema";
-import {createNewUser, findUserById} from "./userController";
+import {createNewUser, findUserById} from "./controllers/userController";
 
 dotenv.config();
 

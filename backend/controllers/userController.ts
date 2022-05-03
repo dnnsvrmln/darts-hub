@@ -1,4 +1,4 @@
-import getDB from "./initializeFirebase";
+import getDB from "../initializeFirebase";
 
 
 export function findUserById(userId: string){
