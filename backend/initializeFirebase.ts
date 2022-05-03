@@ -9,7 +9,7 @@ var admin = require("firebase-admin");
 import Database = database.Database;
 
 
-var serviceAccount = require("/Users/joep/WebstormProjects/darts-hub/backend/darts-hub-firebase-adminsdk-kx0am-b8043f45d6.json");
+var serviceAccount = require("/Users/joep/darts-hub-firebase-adminsdk.json");
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),

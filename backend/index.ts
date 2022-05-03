@@ -17,7 +17,7 @@ app.listen(port, () => {
 
 const resolvers = {
     findUserById (args: any) {
-        return findUserById(args.name);
+        return findUserById(args.userId);
     },
     createNewUser(args: any){
         return createNewUser(args.userName, args.email, args.name)
