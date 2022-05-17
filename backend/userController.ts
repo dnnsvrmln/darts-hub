@@ -1,8 +1,9 @@
 import getDB from "./initializeFirebase";
+import {User} from "./models/User";
 
 
 export function findUserById(userId: string){
-    var user : Object = {};
+    var user : User = new User();
     getDB().ref("Users").child(userId).on('value', function(snapshot) {
         var val = snapshot.val();
         user = JSON.parse(JSON.stringify(val));
