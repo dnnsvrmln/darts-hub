@@ -1,8 +1,12 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
-import {catchError, Observable, throwError} from "rxjs";
+import {Router} from "@angular/router";
+import {BehaviorSubject, catchError, Observable, tap, throwError} from "rxjs";
+
+import {UserModel} from "./user.model";
 
 export interface AuthResponseBody {
+  kind: string;
   idToken: string;
   email: string;
   refreshToken: string;
@@ -15,8 +19,12 @@ export interface AuthResponseBody {
 export class AuthService {
   private static readonly _SIGN_UP_URL = "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyC0jI1vR0Cz8wsxiEmbrNVi9tv-sY39A9A";
   private static readonly _SIGN_IN_URL = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyC0jI1vR0Cz8wsxiEmbrNVi9tv-sY39A9A";
+  private static readonly _LOCAL_STORAGE_KEY = "userDataLocalStorage";
+  private static readonly _SESSION_STORAGE_KEY = "userDataSessionStorage";
 
-  constructor(private httpClient: HttpClient) {
+  public user = new BehaviorSubject<UserModel | null>(null);
+
+  constructor(private httpClient: HttpClient, private router: Router) {
   }
 
   public signUp(email: string, password: string, passwordConfirm: string) {
@@ -31,10 +39,17 @@ export class AuthService {
         password: password,
         returnSecureToken: true
       }
-    ).pipe(catchError(AuthService.handleErrorResponse));
+    ).pipe(catchError(AuthService.handleErrorResponse), tap(responseData => {
+        this.handleAuthentication(
+          responseData.email,
+          responseData.localId,
+          responseData.idToken,
+          +responseData.expiresIn);
+      })
+    );
   }
 
-  public signIn(email: string, password: string) {
+  public signIn(email: string, password: string, rememberMe: boolean) {
     return this.httpClient.post<AuthResponseBody>(
       AuthService._SIGN_IN_URL,
       {
@@ -42,7 +57,34 @@ export class AuthService {
         password: password,
         returnSecureToken: true
       }
-    ).pipe(catchError(AuthService.handleErrorResponse));
+    ).pipe(catchError(AuthService.handleErrorResponse), tap(responseData => {
+        this.handleAuthentication(
+          responseData.email,
+          responseData.localId,
+          responseData.idToken,
+          +responseData.expiresIn,
+          rememberMe);
+      })
+    );
+  }
+
+  public autoSignIn() {
+    this.handleAutoSignIn();
+  }
+
+  public signOut() {
+    this.user.next(null);
+    this.router.navigate(['/auth']);
+
+    if (localStorage.getItem(AuthService._LOCAL_STORAGE_KEY) !== null) {
+      localStorage.removeItem(AuthService._LOCAL_STORAGE_KEY);
+    } else {
+      sessionStorage.removeItem(AuthService._SESSION_STORAGE_KEY);
+    }
+  }
+
+  private static isPasswordConfirmed(password: string, passwordConfirm: string): boolean {
+    return password === passwordConfirm;
   }
 
   private static handleErrorResponse(errorMessage: string): Observable<any> {
@@ -74,7 +116,39 @@ export class AuthService {
     return throwError(errorMessage);
   }
 
-  private static isPasswordConfirmed(password: string, passwordConfirm: string): boolean {
-    return password === passwordConfirm;
+  private handleAuthentication(email: string, localId: string, idToken: string, expiresIn: number, rememberMe?: boolean) {
+    const expirationDate = new Date(new Date().getTime() + (expiresIn * 1000));
+    const user = new UserModel(email, localId, idToken, expirationDate);
+    this.user.next(user);
+
+    if (rememberMe) {
+      localStorage.setItem(AuthService._LOCAL_STORAGE_KEY, JSON.stringify(user));
+    } else {
+      sessionStorage.setItem(AuthService._SESSION_STORAGE_KEY, JSON.stringify(user));
+    }
+  }
+
+  private handleAutoSignIn() {
+    const userData: {
+      email: string;
+      idToken: string;
+      _token: string;
+      _tokenExpirationDate: string;
+    } = JSON.parse(localStorage.getItem(AuthService._LOCAL_STORAGE_KEY)!);
+
+    if (!userData) {
+      return;
+    }
+
+    const loadedUser = new UserModel(
+      userData.email,
+      userData.idToken,
+      userData._token,
+      new Date(userData._tokenExpirationDate)
+    );
+
+    if (loadedUser.token) {
+      this.user.next(loadedUser);
+    }
   }
 }

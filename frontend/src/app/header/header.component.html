@@ -14,7 +14,10 @@
         <a routerLink="/some-test" style="color: #FFFFFF" class="nav-link text-decoration-none">Some Test</a>
       </li>
       <li class="nav-item nav-pills">
-        <a routerLink="/auth" style="color: #FFFFFF" class="nav-link active">Sign In</a>
+        <a routerLink="/auth" style="color: #FFFFFF" class="nav-link active" *ngIf="isAuthenticated" (click)="onSignOut()">Sign Out</a>
+      </li>
+      <li class="nav-item nav-pills">
+        <a routerLink="/auth" style="color: #FFFFFF" class="nav-link active" *ngIf="!isAuthenticated">Sign In</a>
       </li>
     </ul>
   </div>

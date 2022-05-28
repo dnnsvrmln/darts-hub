@@ -3,6 +3,7 @@ import {NgForm} from "@angular/forms";
 import {Observable} from "rxjs";
 
 import {AuthResponseBody, AuthService} from "./auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-auth',
@@ -14,7 +15,7 @@ export class AuthComponent implements OnInit {
   public isSignInMode = true;
   public errorMessage = "";
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -42,8 +43,9 @@ export class AuthComponent implements OnInit {
     if (this.isSignInMode) {
       const emailSignIn = form.value.emailSignIn.toLowerCase();
       const passwordSignIn = form.value.passwordSignIn;
+      const rememberMeSignIn = form.value.rememberMeSignIn;
 
-      authObservable = this.authService.signIn(emailSignIn, passwordSignIn);
+      authObservable = this.authService.signIn(emailSignIn, passwordSignIn, rememberMeSignIn);
     } else {
       const emailSignUp = form.value.emailSignUp.toLowerCase();
       const passwordSignUp = form.value.passwordSignUp;
@@ -56,6 +58,7 @@ export class AuthComponent implements OnInit {
       responseBody => {
         console.log(responseBody);
         this.isLoading = false;
+        this.router.navigate(['/dashboard']);
       },
       responseError => {
         console.log(responseError);
