@@ -1,7 +1,7 @@
 export const typeDef = `
   type User {
-    userName: String
+    username: String
     email: String
-    name: String
+    password: String
   }
 `;

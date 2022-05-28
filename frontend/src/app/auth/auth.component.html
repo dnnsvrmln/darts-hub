@@ -1,0 +1,143 @@
+<div class="row justify-content-center mt-5">
+  <div class="col-sm-10 col-md-6">
+    <div class="alert alert-danger" *ngIf="errorMessage">
+      <p>{{ errorMessage }}</p>
+    </div>
+    <form #signInForm="ngForm" (ngSubmit)="onSubmit(signInForm)" *ngIf="isSignInMode">
+      <div class="form-floating mb-3">
+        <input
+          type="email"
+          class="form-control"
+          id="emailSignIn"
+          placeholder="name@example.com"
+          name="emailSignIn"
+          ngModel
+          email
+          required
+        />
+        <label for="emailSignIn">Email</label>
+      </div>
+      <div class="form-floating mb-3">
+        <input
+          type="password"
+          class="form-control"
+          id="passwordSignIn"
+          name="passwordSignIn"
+          placeholder="Password"
+          ngModel
+          minlength="8"
+          required
+        />
+        <label for="passwordSignIn">Password</label>
+      </div>
+      <div class="mb-3 form-check">
+        <input
+          type="checkbox"
+          class="form-check-input"
+          id="rememberMeSignIn">
+        <label
+          class="form-check-label"
+          for="rememberMeSignIn"
+        >
+          Remember me
+        </label>
+      </div>
+      <div class="mb-3 d-grid">
+        <button
+          class="btn btn-primary"
+          type="submit"
+          [disabled]="!signInForm.valid"
+          *ngIf="!isLoading"
+        >
+          Sign in
+        </button>
+      </div>
+      <div>
+        <button
+          type="button"
+          class="btn btn-link ps-0"
+          (click)="onSwitchMode()"
+        >
+          Not have an account? Sign up here!
+        </button>
+      </div>
+      <button
+        class="btn btn-primary"
+        type="button" disabled
+        *ngIf="isLoading"
+      >
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        <span class="visually-hidden">Loading...</span>
+      </button>
+    </form>
+
+    <form #signUpForm="ngForm" (ngSubmit)="onSubmit(signUpForm)" *ngIf="!isSignInMode">
+      <div class="form-floating mb-3">
+        <input
+          type="email"
+          class="form-control"
+          id="emailSignUp"
+          placeholder="name@example.com"
+          name="emailSignUp"
+          ngModel
+          email
+          required
+        />
+        <label for="emailSignUp">Email</label>
+      </div>
+      <div class="form-floating mb-3">
+        <input
+          type="password"
+          class="form-control"
+          id="passwordSignUp"
+          name="passwordSignUp"
+          placeholder="Password"
+          ngModel
+          minlength="8"
+          required
+        />
+        <label for="passwordSignUp">Password</label>
+      </div>
+      <div class="form-floating mb-3">
+        <input
+          type="password"
+          class="form-control"
+          id="passwordConfirmSignUp"
+          name="passwordConfirmSignUp"
+          placeholder="Password"
+          ngModel
+          minlength="8"
+          required
+        />
+        <label for="passwordConfirmSignUp">Confirm Password</label>
+      </div>
+      <div class="mb-3 d-grid">
+        <button
+          class="btn btn-primary"
+          type="submit"
+          [disabled]="!signUpForm.valid"
+          *ngIf="!isLoading"
+        >
+          Sign up
+        </button>
+      </div>
+      <div>
+        <button
+          type="button"
+          class="btn btn-link ps-0"
+          (click)="onSwitchMode()"
+        >
+          Already have an account? Sign in here!
+        </button>
+      </div>
+      <button
+        class="btn btn-primary"
+        type="button" disabled
+        *ngIf="isLoading"
+      >
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        <span class="visually-hidden">Loading...</span>
+      </button>
+    </form>
+  </div>
+</div>

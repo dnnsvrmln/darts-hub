@@ -1,9 +1,9 @@
 import getDB from "./initializeFirebase";
-import {User} from "./models/User";
+import {UserModel} from "../shared/models/user.model";
 
 
 export function findUserById(userId: string){
-    var user : User = new User();
+    var user : UserModel = new UserModel();
     getDB().ref("Users").child(userId).on('value', function(snapshot) {
         var val = snapshot.val();
         user = JSON.parse(JSON.stringify(val));
@@ -11,13 +11,13 @@ export function findUserById(userId: string){
     return user;
 }
 
-export function createNewUser(userName: string, email: string, name: string ){
+export function createNewUser(username: string, email: string, password: string ){
     const db = getDB()
     const ref = db.ref('Users');
-    ref.child(userName).set({
-        userName: userName,
+    ref.child(username).set({
+        username: username,
         email: email,
-        name: name
+        password: password
     });
 
 
