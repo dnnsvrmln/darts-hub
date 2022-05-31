@@ -10,6 +10,8 @@ import { AppRoutingModule } from "./app-routing.module";
 import { SomeTestComponent } from './some-test/some-test.component';
 import { HomeComponent } from './home/home.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ChildDashboardComponent } from './dashboard/child-dashboard/child-dashboard.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     HeaderComponent,
     SomeTestComponent,
     HomeComponent,
-    DashboardComponent
+    DashboardComponent,
+    ChildDashboardComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
