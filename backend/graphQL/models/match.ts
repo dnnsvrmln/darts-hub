@@ -5,7 +5,7 @@ export const typeDef = `
     matchType: MatchType
     totalAmount: Int
     winner: User,
-    setBool: Boolean
+    isSet: Boolean
   }
 `;
 
