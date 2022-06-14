@@ -75,6 +75,18 @@
     <form #signUpForm="ngForm" (ngSubmit)="onSubmit(signUpForm)" *ngIf="!isSignInMode">
       <div class="form-floating mb-3">
         <input
+          type="text"
+          class="form-control"
+          id="playerNameSignUp"
+          placeholder="player"
+          name="playerNameSignUp"
+          ngModel
+          required
+        />
+        <label for="playerNameSignUp">Player Name</label>
+      </div>
+      <div class="form-floating mb-3">
+        <input
           type="email"
           class="form-control"
           id="emailSignUp"

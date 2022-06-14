@@ -1,7 +1,8 @@
 export class UserModel {
   constructor(
+    public playerName: string,
     public email: string,
-    public idToken: string,
+    public localId: string,
     private _token: string,
     private _tokenExpirationDate: Date
   ) {}

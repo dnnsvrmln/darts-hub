@@ -47,11 +47,12 @@ export class AuthComponent implements OnInit {
 
       authObservable = this.authService.signIn(emailSignIn, passwordSignIn, rememberMeSignIn);
     } else {
+      const displayNameSignUp = form.value.playerNameSignUp.toLowerCase();
       const emailSignUp = form.value.emailSignUp.toLowerCase();
       const passwordSignUp = form.value.passwordSignUp;
       const passwordConfirmSignUp = form.value.passwordConfirmSignUp;
 
-      authObservable = this.authService.signUp(emailSignUp, passwordSignUp, passwordConfirmSignUp);
+      authObservable = this.authService.signUp(displayNameSignUp, emailSignUp, passwordSignUp, passwordConfirmSignUp);
     }
 
     authObservable.subscribe(

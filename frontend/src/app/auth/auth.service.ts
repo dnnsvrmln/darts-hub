@@ -8,6 +8,7 @@ import {UserModel} from "./user.model";
 export interface AuthResponseBody {
   kind: string;
   idToken: string;
+  displayName: string;
   email: string;
   refreshToken: string;
   expiresIn: string;
@@ -27,7 +28,7 @@ export class AuthService {
   constructor(private httpClient: HttpClient, private router: Router) {
   }
 
-  public signUp(email: string, password: string, passwordConfirm: string) {
+  public signUp(displayName: string, email: string, password: string, passwordConfirm: string) {
     if (!AuthService.isPasswordConfirmed(password, passwordConfirm)) {
       return AuthService.handleErrorResponse("PASSWORD_DO_NOT_MATCH");
     }
@@ -35,16 +36,19 @@ export class AuthService {
     return this.httpClient.post<AuthResponseBody>(
       AuthService._SIGN_UP_URL,
       {
+        displayName: displayName,
         email: email,
         password: password,
         returnSecureToken: true
       }
     ).pipe(catchError(AuthService.handleErrorResponse), tap(responseData => {
         this.handleAuthentication(
+          responseData.displayName,
           responseData.email,
           responseData.localId,
           responseData.idToken,
-          +responseData.expiresIn);
+          +responseData.expiresIn
+        );
       })
     );
   }
@@ -59,11 +63,13 @@ export class AuthService {
       }
     ).pipe(catchError(AuthService.handleErrorResponse), tap(responseData => {
         this.handleAuthentication(
+          responseData.displayName,
           responseData.email,
           responseData.localId,
           responseData.idToken,
           +responseData.expiresIn,
-          rememberMe);
+          rememberMe
+        );
       })
     );
   }
@@ -116,9 +122,9 @@ export class AuthService {
     return throwError(errorMessage);
   }
 
-  private handleAuthentication(email: string, localId: string, idToken: string, expiresIn: number, rememberMe?: boolean) {
+  private handleAuthentication(displayName: string, email: string, localId: string, idToken: string, expiresIn: number, rememberMe?: boolean) {
     const expirationDate = new Date(new Date().getTime() + (expiresIn * 1000));
-    const user = new UserModel(email, localId, idToken, expirationDate);
+    const user = new UserModel(displayName, email, localId, idToken, expirationDate);
     this.user.next(user);
 
     if (rememberMe) {
@@ -130,8 +136,9 @@ export class AuthService {
 
   private handleAutoSignIn() {
     const userData: {
+      displayName: string;
       email: string;
-      idToken: string;
+      localId: string;
       _token: string;
       _tokenExpirationDate: string;
     } = JSON.parse(localStorage.getItem(AuthService._LOCAL_STORAGE_KEY)!);
@@ -141,8 +148,9 @@ export class AuthService {
     }
 
     const loadedUser = new UserModel(
+      userData.displayName,
       userData.email,
-      userData.idToken,
+      userData.localId,
       userData._token,
       new Date(userData._tokenExpirationDate)
     );
