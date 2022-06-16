@@ -1,0 +1,4 @@
+enum MatchType {
+  firstTo,
+  bestTo
+}
