@@ -7,9 +7,12 @@ import {NgForm} from "@angular/forms";
   styleUrls: ['./match.component.css']
 })
 export class MatchComponent implements OnInit {
-
+  slidervalue = "3";
   constructor() { }
   ngOnInit(): void {
+  }
+  formatLabel(value: number) {
+    return value;
   }
 
   submitForm(form: NgForm) {

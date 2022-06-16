@@ -10,20 +10,27 @@
   </div>
   <br />
   <div>
-    <input id="game301" type="radio"  value="301" name="gameType" ngModel required>
+    <input id="game301" type="radio"  value="301" name="scoreType" ngModel required>
     <label for="game301">301</label>
   </div>
   <div>
-    <input id="game501" type="radio" value="501" name="gameType" ngModel required>
+    <input id="game501" type="radio" value="501" name="scoreType" ngModel required>
     <label for="game501">501</label>
   </div>
-  <div>
   <br/>
   <div>
     <label>Total amount of legs/sets:</label> <br>
-    <input type="text" name="totalAmount">
+    <input type="number" id="totalNumber" name="totalNumber" width="300" class="form-control" required [(ngModel)]="slidervalue" #slider="ngModel">
   </div>
+  <br />
+  <div>
+    <input id="bestOf" type="radio"  value="bestOf" name="matchType" ngModel required>
+    <label for="bestOf">Best of</label>
+  </div>
+  <div>
+    <input id="firstTo" type="radio" value="firstTo" name="matchType" ngModel required>
+    <label for="firstTo">First to</label>
   </div>
   <!-- Submit Button -->
-  <button type="submit">Find out gender</button>
+  <button type="submit">Create Match</button>
 </form><!-- Form ends -->
