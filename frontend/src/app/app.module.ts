@@ -12,6 +12,7 @@ import { HomeComponent } from './home/home.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ChildDashboardComponent } from './dashboard/child-dashboard/child-dashboard.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import {MatchComponent} from "./match/match.component";
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     HomeComponent,
     DashboardComponent,
     ChildDashboardComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    MatchComponent
   ],
   imports: [
     BrowserModule,
