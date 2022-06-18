@@ -2,11 +2,11 @@ import 'firebase/compat/firestore';
 import 'firebase/compat/auth';
 import {database} from "firebase-admin";
 
-const { getDatabase } = require('firebase-admin/database');
 var admin = require("firebase-admin");
 
 
 import Database = database.Database;
+const { getFirestore } = require('firebase-admin/firestore');
 
 
 var serviceAccount = require("/Users/joep/darts-hub-firebase-adminsdk.json");
@@ -18,7 +18,7 @@ admin.initializeApp({
 
 
 
-export default function getDB() : Database{
+export default function getDB() : FirebaseFirestore.Firestore{
     // Get a database reference to our blog
-    return getDatabase();
+    return getFirestore();
 }

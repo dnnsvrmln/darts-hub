@@ -1,0 +1,29 @@
+<!-- Form starts -->
+<form #myForm="ngForm" (submit)="submitForm(myForm)" novalidate>
+  <div>
+    <input id="leg" type="radio"  value="leg" name="legOrSet" ngModel required>
+    <label for="leg">Leg</label>
+  </div>
+  <div>
+    <input id="set" type="radio" value="set" name="legOrSet" ngModel required>
+    <label for="set">Set</label>
+  </div>
+  <br />
+  <div>
+    <input id="game301" type="radio"  value="301" name="gameType" ngModel required>
+    <label for="game301">301</label>
+  </div>
+  <div>
+    <input id="game501" type="radio" value="501" name="gameType" ngModel required>
+    <label for="game501">501</label>
+  </div>
+  <div>
+  <br/>
+  <div>
+    <label>Total amount of legs/sets:</label> <br>
+    <input type="text" name="totalAmount">
+  </div>
+  </div>
+  <!-- Submit Button -->
+  <button type="submit">Find out gender</button>
+</form><!-- Form ends -->
