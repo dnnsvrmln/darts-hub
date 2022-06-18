@@ -39,7 +39,7 @@ describe('AuthComponent', () => {
     expect(service.signUp('testName', 'test@test.nl', 'mysecretpassword', 'mysecretpassword')).toBeTruthy();
   });
 
-  it('should sign in', () => {
+  it('should sign in to be truthy', () => {
     const service: AuthService = TestBed.get(AuthService);
     expect(service.signIn('test@test.nl', 'mysecretpassword', true)).toBeTruthy();
     expect(service.signIn('test@test.nl', 'mysecretpassword', false)).toBeTruthy();
