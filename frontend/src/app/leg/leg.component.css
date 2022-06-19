@@ -1,0 +1,38 @@
+body {
+  margin: 0px;
+  padding: 0px;
+  background-color: lightgray;
+}
+
+h1 {
+  font-size: 100px;
+  color: green;
+}
+
+button {
+  margin: 5px;
+  background-color: white;
+}
+
+* {
+  box-sizing: border-box;
+  background-color: lightgray;
+}
+
+input {
+  background-color: white;
+}
+
+select option{
+  width: 250px;
+  background-color: white;
+}
+
+.row {
+  display: flex;
+}
+
+.player {
+  flex: 50%;
+  padding: 10px;
+}
