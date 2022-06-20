@@ -41,4 +41,23 @@ export class LegFunctions {
       .subscribe();
   }
 
+  finishLeg(legId:String, winner: String){
+    console.log(winner)
+    this.apollo
+      .mutate({
+        mutation: gql`
+        mutation FinishLeg($legId: String, $winner: String){
+          finishLeg(legId: $legId, winner: $winner){
+            legId
+          }
+        }
+      `,
+        variables: {
+          legId: legId,
+          winner: winner
+        },
+      })
+      .subscribe();
+  }
+
 }

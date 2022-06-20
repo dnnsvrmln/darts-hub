@@ -1,6 +1,5 @@
 import getDB from "../initializeFirebase";
 import {firestore} from "firebase-admin";
-import {countPoints} from './countingPoints'
 import FieldValue = firestore.FieldValue;
 
 export async function createNewLeg(legId: string, scoreType: ScoreType) {
@@ -22,6 +21,16 @@ export async function addTurnToLeg(legId:string, turnId: string){
     await refLeg.doc(legId).update({
         turns: FieldValue.arrayUnion(refTurn)
     });
-
-    countPoints(legId);
 }
+
+export async function finishLeg(legId:string, winner: string){
+    console.log(winner)
+    const db = getDB()
+    const playerRef = db.collection('Player').doc(winner);
+    const refLeg = db.collection('Leg');
+
+    await refLeg.doc(legId).update({
+        winner: playerRef
+    });
+}
+

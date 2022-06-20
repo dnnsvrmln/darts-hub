@@ -1,35 +1,35 @@
-
-
 export class Turn {
-    private _turnId: String = '';
     private _score: Number = 0;
-    private _player: String = '';
+    private _multiplier: Number = 0;
+    private _player: String = "";
+    private _turnTotalPlayerOne:Number = 0
+
+  constructor() {
+
+  }
 
 
-    constructor() {
-    }
+  get score(): Number {
+    return this._score;
+  }
 
-    get turnId(): String {
-        return this._turnId;
-    }
+  set score(value: Number) {
+    this._score = value;
+  }
 
-    set turnId(value: String) {
-        this._turnId = value;
-    }
+  get multiplier(): Number {
+    return this._multiplier;
+  }
 
-    get score(): Number {
-        return this._score;
-    }
+  set multiplier(value: Number) {
+    this._multiplier = value;
+  }
 
-    set score(value: Number) {
-        this._score = value;
-    }
+  get player(): String {
+    return this._player;
+  }
 
-    get player(): String {
-        return this._player;
-    }
-
-    set player(value: String) {
-        this._player = value;
-    }
+  set player(value: String) {
+    this._player = value;
+  }
 }

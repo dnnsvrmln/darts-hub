@@ -3,7 +3,7 @@ import {Player} from "../models/Player";
 
 
 // export function findUserById(userId: string){
-//     var user : Player = new Player();
+//     var user : UserModel = new UserModel();
 //     getDB().ref("Users").child(userId).on('value', function(snapshot) {
 //         var val = snapshot.val();
 //         user = JSON.parse(JSON.stringify(val));

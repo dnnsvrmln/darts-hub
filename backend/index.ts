@@ -5,7 +5,7 @@ import {schema} from "./graphQL/schema";
 import {createNewPlayer} from "./controllers/playerController";
 import {addLegToMatch, addSetToMatch, createNewMatch} from "./controllers/matchController";
 import {createNewTurn} from "./controllers/turnController";
-import {addTurnToLeg, createNewLeg} from "./controllers/legController";
+import {addTurnToLeg, createNewLeg, finishLeg} from "./controllers/legController";
 var cors = require('cors')
 dotenv.config();
 
@@ -39,6 +39,9 @@ const resolvers = {
     },
     addLegToMatch(args: any){
         return addLegToMatch(args.matchId, args.legId)
+    },
+    finishLeg(args: any){
+        return finishLeg(args.legId, args.winner)
     }
 
 }

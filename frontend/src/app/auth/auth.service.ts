@@ -3,7 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {BehaviorSubject, catchError, Observable, tap, throwError} from "rxjs";
 
-import {Player} from "../model/Player";
+import {UserModel} from "./user.model";
 import {LegFunctions} from "../graphqlCalls/LegFunctions";
 import {PlayerFunctions} from "../graphqlCalls/PlayerFunctions";
 import {Apollo} from "apollo-angular";
@@ -26,7 +26,7 @@ export class AuthService {
   private static readonly _LOCAL_STORAGE_KEY = "userDataLocalStorage";
   private static readonly _SESSION_STORAGE_KEY = "userDataSessionStorage";
   playerFunctions: PlayerFunctions;
-  public user = new BehaviorSubject<Player | null>(null);
+  public user = new BehaviorSubject<UserModel | null>(null);
 
   constructor(private httpClient: HttpClient, private router: Router, private apollo: Apollo) {
     this.playerFunctions = new PlayerFunctions(apollo);
@@ -53,7 +53,7 @@ export class AuthService {
           responseData.idToken,
           +responseData.expiresIn
         );
-        let player = new Player(responseData.displayName,
+        let player = new UserModel(responseData.displayName,
           responseData.email,
           responseData.localId,
           responseData.idToken,
@@ -134,7 +134,7 @@ export class AuthService {
 
   private handleAuthentication(displayName: string, email: string, localId: string, idToken: string, expiresIn: number, rememberMe?: boolean) {
     const expirationDate = new Date(new Date().getTime() + (expiresIn * 1000));
-    const user = new Player(displayName, email, localId, idToken, expirationDate);
+    const user = new UserModel(displayName, email, localId, idToken, expirationDate);
     this.user.next(user);
 
     if (rememberMe) {
@@ -157,7 +157,7 @@ export class AuthService {
       return;
     }
 
-    const loadedUser = new Player(
+    const loadedUser = new UserModel(
       userData.displayName,
       userData.email,
       userData.localId,

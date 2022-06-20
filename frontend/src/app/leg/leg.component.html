@@ -9,12 +9,12 @@
   <div class="player">
     <h1><span id="total-p1">{{totalPlayerOne}}</span></h1>
     <label>Score</label>
-    <input id="score-p1" max="25" min="0"
+    <input id="score-p1" max="25" min="0" [(ngModel)]="pointsOne"
            name="score-p1" type="number">
     <br><br>
-    <button (click)="scoreSinglePlayerOne()" type="button">Single</button>
-    <button (click)="scoreDoublePlayerOne()" type="button">Double</button>
-    <button (click)="scoreTriplePlayerOne()" type="button">Triple</button>
+    <button (click)="noteScoreOne(pointsOne, 1, 0)" type="button">Single</button>
+    <button (click)="noteScoreOne(pointsOne, 2, 0)" type="button">Double</button>
+    <button (click)="noteScoreOne(pointsOne, 3, 0)" type="button">Triple</button>
     <br><br>
     <select multiple="multiple" name="darts-list-p1" size="3">
       <option value="dart1-p1">{{dartOnePlayerOne}}</option>
@@ -28,12 +28,12 @@
   <div class="player">
     <h1><span id="total-p2">{{totalPlayerTwo}}</span></h1>
     <label>Score</label>
-    <input id="score-p2" max="25" min="0"
+    <input id="score-p2" max="25" min="0" [(ngModel)]="pointsTwo"
            name="score-p2" type="number">
     <br><br>
-    <button (click)="scoreSinglePlayerTwo()" type="button">Single</button>
-    <button (click)="scoreDoublePlayerTwo()" type="button">Double</button>
-    <button (click)="scoreTriplePlayerTwo()" type="button">Triple</button>
+    <button (click)="noteScoreTwo(pointsTwo, 1, 1)" type="button">Single</button>
+    <button (click)="noteScoreTwo(pointsTwo, 2, 1)" type="button">Double</button>
+    <button (click)="noteScoreTwo(pointsTwo, 3, 1)" type="button">Triple</button>
     <br><br>
     <select multiple="multiple" name="darts-list-p2" size="3">
       <option value="dart1-p2">{{dartOnePlayerTwo}}</option>

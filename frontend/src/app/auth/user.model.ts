@@ -1,4 +1,4 @@
-export class Player {
+export class UserModel {
   constructor(
     public playerName: string,
     public email: string,

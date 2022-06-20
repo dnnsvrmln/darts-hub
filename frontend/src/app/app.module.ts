@@ -33,7 +33,7 @@ import {LegComponent} from "./leg/leg.component";
     PageNotFoundComponent,
     MatchComponent,
     IngameComponent,
-    CreateGameComponent
+    CreateGameComponent,
     PageNotFoundComponent,
     LegComponent
   ],

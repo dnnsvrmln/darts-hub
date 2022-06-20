@@ -1,11 +1,11 @@
 import {Apollo, gql} from "apollo-angular";
-import {Player} from "../model/Player";
+import {UserModel} from "../auth/user.model";
 
 export class PlayerFunctions {
 
   constructor(private apollo: Apollo) { }
 
-  createPlayer(player: Player) {
+  createPlayer(player: UserModel) {
     this.apollo
       .mutate({
         mutation: gql`

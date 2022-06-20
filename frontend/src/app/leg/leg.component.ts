@@ -1,4 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {TurnFunctions} from "../graphqlCalls/TurnFunctions";
+import {PlayerFunctions} from "../graphqlCalls/PlayerFunctions";
+import {Apollo} from "apollo-angular";
+import {Turn} from "../model/Turn";
+import {LegFunctions} from "../graphqlCalls/LegFunctions";
 
 @Component({
   selector: 'app-leg',
@@ -6,32 +11,122 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./leg.component.css']
 })
 export class LegComponent implements OnInit {
-  public totalPlayerOne = 501;
-  public totalPlayerTwo = 501;
+  // public totalPlayerOne = 501;
+  // public totalPlayerTwo = 501;
   public dartOnePlayerOne : string | undefined;
   public dartTwoPlayerOne : string | undefined;
   public dartThreePlayerOne : string | undefined;
   public dartOnePlayerTwo : string | undefined;
   public dartTwoPlayerTwo : string | undefined;
   public dartThreePlayerTwo : string | undefined;
-  public turnTotalPlayerOne = 0;
-  public turnTotalPlayerTwo = 0;
+  // public turnTotalPlayerOne = 0;
+  // public turnTotalPlayerTwo = 0;
   public scorePlayerOne = 0;
   public scorePlayerTwo = 0;
 
-  constructor() { }
-
-  ngOnInit(): void {
+  constructor(private apollo: Apollo) {
+    this.turnFunctions = new TurnFunctions(apollo);
+    this.legFunctions = new LegFunctions(apollo);
   }
 
-  //TODO move logic to backend
+  @Input() legId = '';
+  turnFunctions: TurnFunctions;
+  legFunctions: LegFunctions;
+
+  ngOnInit(): void {
+    const userString: any = JSON.parse(sessionStorage.getItem("user")!);
+    this.players.push(userString['playerName'])
+    this.players.push(localStorage.getItem("playerTwo")!)
+  }
+  players: Array<String> = []
 
   isValidScore(score: number) {
-    if( score !=undefined && (score<=20 && score>=0) || score==25)
+    return score != undefined && (score <= 20 && score >= 0) || score == 25;
+
+  }
+  score = 0;
+  darts: Turn[] = [];
+  totalPlayerOne = 501;
+  totalPlayerTwo = 501;
+  turnTotalPlayerOne:number = 0;
+  turnTotalPlayerTwo:number = 0;
+  pointsOne: any;
+  pointsTwo: any;
+
+
+  throws:number = 0;
+  noteScoreOne(points: number, multiplier: number, player: number){
+
+    if(this.isValidScore(this.score))
     {
-      return true;
+      const turn: Turn = new Turn()
+      turn.score = points
+      turn.multiplier = multiplier
+      turn.player = this.players[player]
+      if(multiplier == 2 && this.totalPlayerOne - (points * multiplier) == 0){
+        alert(this.players[player] + " has won!")
+        this.totalPlayerOne =- (points * multiplier)
+        this.legFunctions.finishLeg(this.legId,this.players[player])
+      }
+      else if(this.throws != 3) {
+        if(this.totalPlayerOne - (points * multiplier) < 2 ){
+          if(this.totalPlayerOne- (points * multiplier) < 1){
+            console.log(this.totalPlayerOne- (points * multiplier))
+            return
+          }
+          return;
+        }
+        this.darts.push(turn)
+        this.turnTotalPlayerOne += (points * multiplier);
+        this.totalPlayerOne = this.totalPlayerOne - (points * multiplier);
+        this.turnFunctions.addNewTurn(this.legId, this.turnTotalPlayerOne, 1, this.players[player])
+        this.throws++
+      } else {
+        this.throws = 0;
+        alert("Your turn is over");
+      }
+
+    } else
+    {
+      alert("Please enter a valid score");
     }
-    return false;
+  }
+
+  noteScoreTwo(points: number, multiplier: number, player: number){
+
+    if(this.isValidScore(this.score))
+    {
+      const turn: Turn = new Turn()
+      turn.score = points
+      turn.multiplier = multiplier
+      turn.player = this.players[player]
+      if(multiplier == 2 && this.totalPlayerTwo - (points * multiplier) == 0){
+        alert(this.players[player] + " has won!")
+        this.totalPlayerTwo =- (points * multiplier)
+        this.legFunctions.finishLeg(this.legId,this.players[player])
+      }
+      else if(this.throws != 3) {
+        if(this.totalPlayerTwo - (points * multiplier) < 2 ){
+          if(this.totalPlayerTwo - (points * multiplier) < 1){
+            console.log(this.totalPlayerTwo - (points * multiplier))
+            return
+          }
+          return;
+        }
+        this.darts.push(turn)
+        this.turnTotalPlayerTwo += (points * multiplier);
+        this.totalPlayerTwo = this.totalPlayerTwo - (points * multiplier);
+        this.turnFunctions.addNewTurn(this.legId, this.turnTotalPlayerTwo, 1, this.players[player])
+        this.throws++
+      } else {
+        this.throws = 0;
+        alert("Your turn is over");
+      }
+
+    } else
+    {
+      alert("Please enter a valid score");
+    }
   }
 
   scoreSinglePlayerOne() {
@@ -40,11 +135,14 @@ export class LegComponent implements OnInit {
     {
       console.error(String(<HTMLInputElement>document.getElementById("score-p1")));
       if(this.dartOnePlayerOne==undefined) {
+        console.log("test")
         this.turnTotalPlayerOne += this.scorePlayerOne;
         this.dartOnePlayerOne = "S" + this.scorePlayerOne;
+        this.turnFunctions.addNewTurn(this.legId, this.turnTotalPlayerOne, 1, this.players[0])
       } else if (this.dartTwoPlayerOne==undefined) {
         this.turnTotalPlayerOne += this.scorePlayerOne;
         this.dartTwoPlayerOne = "S" + this.scorePlayerOne;
+        this.turnFunctions.addNewTurn(this.legId, this.turnTotalPlayerOne, 1, this.players[0])
       } else if (this.dartThreePlayerOne==undefined) {
         this.turnTotalPlayerOne += this.scorePlayerOne;
         this.dartThreePlayerOne = "S" + this.scorePlayerOne;
@@ -76,7 +174,7 @@ export class LegComponent implements OnInit {
       if (this.totalPlayerOne-this.turnTotalPlayerOne==0)
       {
         this.totalPlayerOne -= this.turnTotalPlayerOne;
-        alert("Player one has won!")
+        alert("UserModel one has won!")
       }
     } else
     {
@@ -147,7 +245,7 @@ export class LegComponent implements OnInit {
       if (this.totalPlayerTwo-this.turnTotalPlayerTwo==0)
       {
         this.totalPlayerTwo -= this.turnTotalPlayerTwo;
-        alert("Player two has won!")
+        alert("UserModel two has won!")
       }
     } else
     {
