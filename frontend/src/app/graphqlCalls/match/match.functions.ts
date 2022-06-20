@@ -1,12 +1,12 @@
 import {Apollo, gql} from "apollo-angular";
-import {NgForm} from "@angular/forms";
-import {Match} from "../model/Match";
+
+import {MatchModel} from "../../model/match/match.model";
 
 export class MatchFunctions {
 
   constructor(private apollo: Apollo) { }
 
-  createMatch(match: Match) {
+  createMatch(match: MatchModel) {
     console.log("test")
     this.apollo
       .mutate({

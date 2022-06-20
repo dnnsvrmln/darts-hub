@@ -1,5 +1,5 @@
 export const typeDef = `
-  type Turn {
+  type TurnModel {
     turnId: String
     points: Int
     multiplier: Int

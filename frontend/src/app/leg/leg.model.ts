@@ -1,10 +1,10 @@
-import {UserModel} from "../auth/user.model";
+import {PlayerModel} from "../model/player/player.model";
 
 export class LegModel {
   constructor(
     public turnId: string,
     public score: number,
-    public player: UserModel,
+    public player: PlayerModel,
     private _token: string,
     private _tokenExpirationDate: Date
   ) {}

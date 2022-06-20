@@ -1,12 +1,12 @@
-import {Player} from "./Player";
+import {PlayerModel} from "../player/player.model";
 
-export class Turn {
+export class TurnModel {
     private _turnId: String;
     private _score: number;
-    private _player: Player;
+    private _player: PlayerModel;
 
 
-    constructor(turnId: String, score: number, player: Player) {
+    constructor(turnId: String, score: number, player: PlayerModel) {
         this._turnId = turnId;
         this._score = score;
         this._player = player;
@@ -28,11 +28,11 @@ export class Turn {
         this._score = value;
     }
 
-    get player(): Player {
+    get player(): PlayerModel {
         return this._player;
     }
 
-    set player(value: Player) {
+    set player(value: PlayerModel) {
         this._player = value;
     }
 }

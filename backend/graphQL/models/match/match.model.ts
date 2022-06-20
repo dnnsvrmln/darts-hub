@@ -1,7 +1,7 @@
 export const typeDef = `
   scalar Date
 
-  type Match {
+  type MatchModel {
     matchId: String
     date: Date
     matchType: String
@@ -12,13 +12,13 @@ export const typeDef = `
 `;
 
 export const typeDefLeg = `
-  extend type Match {
+  extend type MatchModel {
     leg: [Leg]
   }
 `;
 
 export const typeDefSet = `
-  extend type Match {
+  extend type MatchModel {
     set: [Set]
   }
 `;

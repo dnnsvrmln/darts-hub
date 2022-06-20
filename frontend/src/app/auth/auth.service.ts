@@ -3,9 +3,8 @@ import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {BehaviorSubject, catchError, Observable, tap, throwError} from "rxjs";
 
-import {UserModel} from "./user.model";
-import {LegFunctions} from "../graphqlCalls/LegFunctions";
-import {PlayerFunctions} from "../graphqlCalls/PlayerFunctions";
+import {PlayerModel} from "../model/player/player.model";
+import {PlayerFunctions} from "../graphqlCalls/player/player.functions";
 import {Apollo} from "apollo-angular";
 
 export interface AuthResponseBody {
@@ -25,11 +24,12 @@ export class AuthService {
   private static readonly _SIGN_IN_URL = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyC0jI1vR0Cz8wsxiEmbrNVi9tv-sY39A9A";
   private static readonly _LOCAL_STORAGE_KEY = "userDataLocalStorage";
   private static readonly _SESSION_STORAGE_KEY = "userDataSessionStorage";
-  playerFunctions: PlayerFunctions;
-  public user = new BehaviorSubject<UserModel | null>(null);
+
+  private _playerFunctions: PlayerFunctions;
+  public player = new BehaviorSubject<PlayerModel | null>(null);
 
   constructor(private httpClient: HttpClient, private router: Router, private apollo: Apollo) {
-    this.playerFunctions = new PlayerFunctions(apollo);
+    this._playerFunctions = new PlayerFunctions(apollo);
   }
 
   public signUp(displayName: string, email: string, password: string, passwordConfirm: string) {
@@ -47,18 +47,19 @@ export class AuthService {
       }
     ).pipe(catchError(AuthService.handleErrorResponse), tap(responseData => {
         this.handleAuthentication(
+          responseData.localId,
           responseData.displayName,
           responseData.email,
-          responseData.localId,
           responseData.idToken,
           +responseData.expiresIn
         );
-        let player = new UserModel(responseData.displayName,
-          responseData.email,
+        let player = new PlayerModel(
           responseData.localId,
+          responseData.displayName,
+          responseData.email,
           responseData.idToken,
           new Date(new Date().getTime() + (responseData.expiresIn * 1000)))
-        this.playerFunctions.createPlayer(player);
+        this._playerFunctions.createPlayer(player);
       })
     );
   }
@@ -73,9 +74,9 @@ export class AuthService {
       }
     ).pipe(catchError(AuthService.handleErrorResponse), tap(responseData => {
         this.handleAuthentication(
+          responseData.localId,
           responseData.displayName,
           responseData.email,
-          responseData.localId,
           responseData.idToken,
           +responseData.expiresIn,
           rememberMe
@@ -89,7 +90,7 @@ export class AuthService {
   }
 
   public signOut() {
-    this.user.next(null);
+    this.player.next(null);
     this.router.navigate(['/auth']);
 
     if (localStorage.getItem(AuthService._LOCAL_STORAGE_KEY) !== null) {
@@ -132,23 +133,23 @@ export class AuthService {
     return throwError(errorMessage);
   }
 
-  private handleAuthentication(displayName: string, email: string, localId: string, idToken: string, expiresIn: number, rememberMe?: boolean) {
+  private handleAuthentication(playerUID: string, displayName: string, email: string, idToken: string, expiresIn: number, rememberMe?: boolean) {
     const expirationDate = new Date(new Date().getTime() + (expiresIn * 1000));
-    const user = new UserModel(displayName, email, localId, idToken, expirationDate);
-    this.user.next(user);
+    const player = new PlayerModel(playerUID, displayName, email, idToken, expirationDate);
+    this.player.next(player);
 
     if (rememberMe) {
-      localStorage.setItem("user", JSON.stringify(user));
+      localStorage.setItem("user", JSON.stringify(player));
     } else {
-      sessionStorage.setItem("user", JSON.stringify(user));
+      sessionStorage.setItem("user", JSON.stringify(player));
     }
   }
 
   private handleAutoSignIn() {
     const userData: {
+      playerUID: string;
       displayName: string;
       email: string;
-      localId: string;
       _token: string;
       _tokenExpirationDate: string;
     } = JSON.parse(localStorage.getItem(AuthService._LOCAL_STORAGE_KEY)!);
@@ -157,16 +158,16 @@ export class AuthService {
       return;
     }
 
-    const loadedUser = new UserModel(
+    const loadedUser = new PlayerModel(
+      userData.playerUID,
       userData.displayName,
       userData.email,
-      userData.localId,
       userData._token,
       new Date(userData._tokenExpirationDate)
     );
 
     if (loadedUser.token) {
-      this.user.next(loadedUser);
+      this.player.next(loadedUser);
     }
   }
 }

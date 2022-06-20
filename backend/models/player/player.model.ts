@@ -1,4 +1,4 @@
-export class Player {
+export class PlayerModel {
     constructor(
         public _playerName: string,
         public _email: string,

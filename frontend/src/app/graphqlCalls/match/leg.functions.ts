@@ -1,11 +1,11 @@
 import {Apollo, gql} from "apollo-angular";
-import {Leg} from "../model/Leg";
+import {LegModel} from "../../model/match/leg.model";
 
 export class LegFunctions {
 
   constructor(private apollo: Apollo) { }
 
-  createLeg(leg: Leg) {
+  createLeg(leg: LegModel) {
     this.apollo
       .mutate({
         mutation: gql`

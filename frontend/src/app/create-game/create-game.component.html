@@ -2,11 +2,11 @@
 <form #myForm="ngForm" (submit)="submitForm(myForm)" novalidate>
   <div>
     <input id="leg" type="radio"  value="leg" name="legOrSet" ngModel required>
-    <label for="leg">Leg</label>
+    <label for="leg">LegModel</label>
   </div>
   <div>
     <input id="set" type="radio" value="set" name="legOrSet" ngModel required>
-    <label for="set">Set</label>
+    <label for="set">SetModel</label>
   </div>
   <br />
   <div>
@@ -32,9 +32,9 @@
     <label for="firstTo">First to</label>
   </div>
   <div>
-    <label >UserModel Two:</label>
+    <label >PlayerModel Two:</label>
     <input type="text"  name="playerTwo" ngModel required>
   </div>
   <!-- Submit Button -->
-  <button type="submit" >Create Match</button>
+  <button type="submit" >Create MatchModel</button>
 </form><!-- Form ends -->

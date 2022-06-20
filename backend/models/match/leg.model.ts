@@ -1,13 +1,13 @@
-import {Turn} from "./Turn";
+import {TurnModel} from "./turn.model";
 
-export class Leg {
+export class LegModel {
     private _legId: String;
     private _average: Number;
     private _scoreType: String;
-    private _turn: Turn
+    private _turn: TurnModel
 
 
-    constructor(legId: String, average: Number, scoreType: String, turn: Turn) {
+    constructor(legId: String, average: Number, scoreType: String, turn: TurnModel) {
         this._legId = legId;
         this._average = average;
         this._scoreType = scoreType;
@@ -39,11 +39,11 @@ export class Leg {
         this._scoreType = value;
     }
 
-    get turn(): Turn {
+    get turn(): TurnModel {
         return this._turn;
     }
 
-    set turn(value: Turn) {
+    set turn(value: TurnModel) {
         this._turn = value;
     }
 }

@@ -1,6 +1,4 @@
 import {Apollo, gql} from "apollo-angular";
-import {UserModel} from "../auth/user.model";
-import {NgForm} from "@angular/forms";
 
 export class TurnFunctions {
 
@@ -42,5 +40,4 @@ export class TurnFunctions {
         },
       }).subscribe()
   }
-
 }

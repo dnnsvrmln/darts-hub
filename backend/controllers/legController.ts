@@ -2,7 +2,7 @@ import getDB from "../initializeFirebase";
 import {firestore} from "firebase-admin";
 import FieldValue = firestore.FieldValue;
 
-export async function createNewLeg(legId: string, scoreType: ScoreType) {
+export async function createNewLeg(legId: string, scoreType: ScoreTypeEnum) {
     const db = getDB()
     const ref = db.collection('Leg');
     await ref.doc(legId).set({

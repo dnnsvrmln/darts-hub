@@ -1,5 +1,5 @@
 export const typeDef = `
-    type Set {
+    type SetModel {
     setId: String
     score: Int
     player: Player

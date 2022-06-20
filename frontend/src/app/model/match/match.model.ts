@@ -1,12 +1,10 @@
-
-export class Match {
+export class MatchModel {
   private _matchId: String = '';
   private _date: Number = 0;
   private _matchType: String = '';
   private _totalAmount: Number = 0;
   private _isSet: Boolean = false;
   private _winner: String = '';
-
 
   constructor() {
   }

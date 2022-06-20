@@ -1,8 +1,8 @@
-export class UserModel {
+export class PlayerModel {
   constructor(
+    public playerUID: string,
     public playerName: string,
     public email: string,
-    public localId: string,
     private _token: string,
     private _tokenExpirationDate: Date
   ) {}

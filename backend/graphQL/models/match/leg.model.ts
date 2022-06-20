@@ -1,5 +1,5 @@
 export const typeDef = `
-    type Leg {
+    type LegModel {
     legId: String
     average: Float
     scoreType: String
