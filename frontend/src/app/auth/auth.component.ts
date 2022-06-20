@@ -52,12 +52,14 @@ export class AuthComponent implements OnInit {
       const passwordSignUp = form.value.passwordSignUp;
       const passwordConfirmSignUp = form.value.passwordConfirmSignUp;
 
+
+
       authObservable = this.authService.signUp(displayNameSignUp, emailSignUp, passwordSignUp, passwordConfirmSignUp);
     }
 
     authObservable.subscribe(
       responseBody => {
-        console.log(responseBody);
+        console.log(responseBody.displayName);
         this.isLoading = false;
         this.router.navigate(['/dashboard']);
       },

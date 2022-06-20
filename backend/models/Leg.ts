@@ -2,12 +2,12 @@ import {Turn} from "./Turn";
 
 export class Leg {
     private _legId: String;
-    private _average: number;
-    private _scoreType: ScoreType;
+    private _average: Number;
+    private _scoreType: String;
     private _turn: Turn
 
 
-    constructor(legId: String, average: number, scoreType: ScoreType, turn: Turn) {
+    constructor(legId: String, average: Number, scoreType: String, turn: Turn) {
         this._legId = legId;
         this._average = average;
         this._scoreType = scoreType;
@@ -23,19 +23,19 @@ export class Leg {
         this._legId = value;
     }
 
-    get average(): number {
+    get average(): Number {
         return this._average;
     }
 
-    set average(value: number) {
+    set average(value: Number) {
         this._average = value;
     }
 
-    get scoreType(): ScoreType {
+    get scoreType(): String {
         return this._scoreType;
     }
 
-    set scoreType(value: ScoreType) {
+    set scoreType(value: String) {
         this._scoreType = value;
     }
 

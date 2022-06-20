@@ -9,12 +9,14 @@ import {AuthGuard} from "./auth/auth.guard";
 import {ChildDashboardComponent} from "./dashboard/child-dashboard/child-dashboard.component";
 import {PageNotFoundComponent} from "./page-not-found/page-not-found.component";
 import {MatchComponent} from "./match/match.component";
+import {IngameComponent} from "./ingame/ingame.component";
 
 const appRoutes: Routes = [
   { path: "", component: HomeComponent, pathMatch: "full" },
   { path: "auth", component: AuthComponent },
   { path: "some-test", component: SomeTestComponent },
   { path: "match", component: MatchComponent },
+  { path: "ingame", component: IngameComponent },
   { path: "dashboard", component: DashboardComponent, canActivate: [AuthGuard], children: [
       { path: "child-dashboard", component:  ChildDashboardComponent },
     ]
@@ -27,4 +29,5 @@ const appRoutes: Routes = [
   imports: [RouterModule.forRoot(appRoutes)],
   exports: [RouterModule]
 })
+
 export class AppRoutingModule {}

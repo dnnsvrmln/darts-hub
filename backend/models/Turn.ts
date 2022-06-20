@@ -1,12 +1,12 @@
-import {User} from "./User";
+import {Player} from "./Player";
 
 export class Turn {
     private _turnId: String;
     private _score: number;
-    private _player: User;
+    private _player: Player;
 
 
-    constructor(turnId: String, score: number, player: User) {
+    constructor(turnId: String, score: number, player: Player) {
         this._turnId = turnId;
         this._score = score;
         this._player = player;
@@ -28,11 +28,11 @@ export class Turn {
         this._score = value;
     }
 
-    get player(): User {
+    get player(): Player {
         return this._player;
     }
 
-    set player(value: User) {
+    set player(value: Player) {
         this._player = value;
     }
 }

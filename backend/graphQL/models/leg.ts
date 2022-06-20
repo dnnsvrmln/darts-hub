@@ -2,7 +2,7 @@ export const typeDef = `
     type Leg {
     legId: String
     average: Float
-    scoreType: ScoreType
+    scoreType: String
     turn: [Turn]
   }    
 `

@@ -1,4 +1,4 @@
-import { typeDef as User } from './models/user';
+import { typeDef as Player } from './models/player';
 import { typeDef as Match,
     typeDefLeg as MatchLeg,
     typeDefSet as MatchSet } from './models/match'
@@ -15,5 +15,5 @@ import { enumDef as MatchType} from "./enums/matchType";
 import { makeExecutableSchema } from '@graphql-tools/schema'
 
 export const schema = makeExecutableSchema({
-    typeDefs: [ Query, UserMutation, MatchMutation, LegMutation, TurnMutation, Set, User, MatchLeg, MatchSet, Leg, Turn, ScoreType, MatchType, Match ]
+    typeDefs: [ Query, UserMutation, MatchMutation, LegMutation, TurnMutation, Set, Player, MatchLeg, MatchSet, Leg, Turn, ScoreType, MatchType, Match ]
 });

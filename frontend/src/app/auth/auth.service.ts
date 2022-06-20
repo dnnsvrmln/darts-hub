@@ -3,7 +3,10 @@ import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {BehaviorSubject, catchError, Observable, tap, throwError} from "rxjs";
 
-import {UserModel} from "./user.model";
+import {Player} from "../model/Player";
+import {LegFunctions} from "../graphqlCalls/LegFunctions";
+import {PlayerFunctions} from "../graphqlCalls/PlayerFunctions";
+import {Apollo} from "apollo-angular";
 
 export interface AuthResponseBody {
   kind: string;
@@ -22,10 +25,11 @@ export class AuthService {
   private static readonly _SIGN_IN_URL = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyC0jI1vR0Cz8wsxiEmbrNVi9tv-sY39A9A";
   private static readonly _LOCAL_STORAGE_KEY = "userDataLocalStorage";
   private static readonly _SESSION_STORAGE_KEY = "userDataSessionStorage";
+  playerFunctions: PlayerFunctions;
+  public user = new BehaviorSubject<Player | null>(null);
 
-  public user = new BehaviorSubject<UserModel | null>(null);
-
-  constructor(private httpClient: HttpClient, private router: Router) {
+  constructor(private httpClient: HttpClient, private router: Router, private apollo: Apollo) {
+    this.playerFunctions = new PlayerFunctions(apollo);
   }
 
   public signUp(displayName: string, email: string, password: string, passwordConfirm: string) {
@@ -49,6 +53,12 @@ export class AuthService {
           responseData.idToken,
           +responseData.expiresIn
         );
+        let player = new Player(responseData.displayName,
+          responseData.email,
+          responseData.localId,
+          responseData.idToken,
+          new Date(new Date().getTime() + (responseData.expiresIn * 1000)))
+        this.playerFunctions.createPlayer(player);
       })
     );
   }
@@ -124,13 +134,13 @@ export class AuthService {
 
   private handleAuthentication(displayName: string, email: string, localId: string, idToken: string, expiresIn: number, rememberMe?: boolean) {
     const expirationDate = new Date(new Date().getTime() + (expiresIn * 1000));
-    const user = new UserModel(displayName, email, localId, idToken, expirationDate);
+    const user = new Player(displayName, email, localId, idToken, expirationDate);
     this.user.next(user);
 
     if (rememberMe) {
-      localStorage.setItem(AuthService._LOCAL_STORAGE_KEY, JSON.stringify(user));
+      localStorage.setItem("user", JSON.stringify(user));
     } else {
-      sessionStorage.setItem(AuthService._SESSION_STORAGE_KEY, JSON.stringify(user));
+      sessionStorage.setItem("user", JSON.stringify(user));
     }
   }
 
@@ -147,7 +157,7 @@ export class AuthService {
       return;
     }
 
-    const loadedUser = new UserModel(
+    const loadedUser = new Player(
       userData.displayName,
       userData.email,
       userData.localId,

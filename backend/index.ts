@@ -2,11 +2,11 @@ import express, { Express } from 'express';
 import dotenv from 'dotenv';
 import {graphqlHTTP} from "express-graphql";
 import {schema} from "./graphQL/schema";
-import {createNewUser} from "./controllers/userController";
-import {createNewMatch} from "./controllers/matchController";
+import {createNewPlayer} from "./controllers/playerController";
+import {addLegToMatch, addSetToMatch, createNewMatch} from "./controllers/matchController";
 import {createNewTurn} from "./controllers/turnController";
 import {addTurnToLeg, createNewLeg} from "./controllers/legController";
-
+var cors = require('cors')
 dotenv.config();
 
 const app: Express = express();
@@ -16,15 +16,14 @@ app.listen(port, () => {
     console.log(`⚡️[server]: Server is running at https://localhost:${port}`);
 });
 
+app.use(cors())
+
 const resolvers = {
-    // findUserById (args: any) {
-    //     return findUserById(args.userId);
-    // },
-    createNewUser(args: any){
-        return createNewUser(args.userName, args.email, args.name)
+    createNewPlayer(args: any){
+        return createNewPlayer(args.playerName, args.email, args.localId)
     },
     createNewMatch (args: any){
-        return createNewMatch(args.matchId, args.date, args.totalAmount, args.matchType)
+        return createNewMatch(args.matchId, args.date, args.totalAmount, args.matchType, args.isSet)
     },
     createNewTurn (args: any){
         return createNewTurn(args.turnId, args.points, args.multiplier, args.player)
@@ -34,6 +33,12 @@ const resolvers = {
     },
     addTurnToLeg(args: any){
         return addTurnToLeg(args.legId, args.turnId)
+    },
+    addSetToMatch(args: any){
+        return addSetToMatch(args.matchId, args.setId)
+    },
+    addLegToMatch(args: any){
+        return addLegToMatch(args.matchId, args.legId)
     }
 
 }
@@ -43,4 +48,5 @@ app.use('/graphql', graphqlHTTP({
     rootValue: resolvers,
     graphiql: true,
 }));
+
 console.log('Running a GraphQL API server at http://localhost:3000/graphql');

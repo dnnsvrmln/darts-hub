@@ -1,58 +1,61 @@
-import {User} from "./User";
 
 export class Match {
-    private _matchId: number;
-    private _date: number;
-    private _matchType: MatchType;
-    private _totalAmount: number;
-    private _winner: User;
+    private _matchId: String = '';
+    private _date: Number = 0;
+    private _matchType: String = '';
+    private _totalAmount: Number = 0;
+    private _isSet: Boolean = false;
+    private _winner: String = '';
 
 
-    constructor(matchId: number, date: number, matchType: MatchType, totalAmount: number, winner: User) {
-        this._matchId = matchId;
-        this._date = date;
-        this._matchType = matchType;
-        this._totalAmount = totalAmount;
-        this._winner = winner;
+    constructor() {
     }
 
-    get matchId(): number {
+    get matchId(): String {
         return this._matchId;
     }
 
-    set matchId(value: number) {
+    set matchId(value: String) {
         this._matchId = value;
     }
 
-    get date(): number {
+    get date(): Number {
         return this._date;
     }
 
-    set date(value: number) {
+    set date(value: Number) {
         this._date = value;
     }
 
-    get matchType(): MatchType {
+    get matchType(): String {
         return this._matchType;
     }
 
-    set matchType(value: MatchType) {
+    set matchType(value: String) {
         this._matchType = value;
     }
 
-    get totalAmount(): number {
+    get totalAmount(): Number {
         return this._totalAmount;
     }
 
-    set totalAmount(value: number) {
+    set totalAmount(value: Number) {
         this._totalAmount = value;
     }
 
-    get winner(): User {
+    get isSet(): Boolean {
+        return this._isSet;
+    }
+
+    set isSet(value: Boolean) {
+        this._isSet = value;
+    }
+
+    get winner(): String {
         return this._winner;
     }
 
-    set winner(value: User) {
+    set winner(value: String) {
         this._winner = value;
     }
 }

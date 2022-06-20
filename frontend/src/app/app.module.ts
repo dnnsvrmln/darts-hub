@@ -2,6 +2,7 @@ import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
+import { ApolloModule } from 'apollo-angular';
 
 import { AppComponent } from './app.component';
 import { AuthComponent } from './auth/auth.component';
@@ -14,6 +15,10 @@ import { ChildDashboardComponent } from './dashboard/child-dashboard/child-dashb
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import {MatchComponent} from "./match/match.component";
 import {MatSliderModule} from '@angular/material/slider';
+import {HttpLinkModule} from "apollo-angular-link-http";
+import {GraphQLModule} from "./graphql.module";
+import { IngameComponent } from './ingame/ingame.component';
+import { CreateGameComponent } from './create-game/create-game.component';
 
 @NgModule({
   declarations: [
@@ -25,14 +30,20 @@ import {MatSliderModule} from '@angular/material/slider';
     DashboardComponent,
     ChildDashboardComponent,
     PageNotFoundComponent,
-    MatchComponent
+    MatchComponent,
+    IngameComponent,
+    CreateGameComponent
   ],
   imports: [
+    GraphQLModule,
     BrowserModule,
     FormsModule,
     HttpClientModule,
     AppRoutingModule,
-    MatSliderModule
+    MatSliderModule,
+    HttpClientModule,
+    ApolloModule,
+    HttpLinkModule
   ],
   exports: [
     MatSliderModule

@@ -1,0 +1,11 @@
+<form #myForm="ngForm" (submit)="addNewTurn(myForm)" novalidate>
+  <label>{{ players[0] }}</label>
+  <br>
+  <label>Points: </label>
+  <input type="text" name="points" ngModel>
+  <br>
+  <label>Multiplier: </label>
+  <input type="text" name="multiplier" ngModel>
+  <br>
+  <button type="submit" >Next turn</button>
+</form>

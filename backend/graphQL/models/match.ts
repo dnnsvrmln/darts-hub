@@ -1,10 +1,12 @@
 export const typeDef = `
+  scalar Date
+
   type Match {
     matchId: String
-    date: Int
-    matchType: MatchType
+    date: Date
+    matchType: String
     totalAmount: Int
-    winner: User,
+    winner: Player,
     isSet: Boolean
   }
 `;

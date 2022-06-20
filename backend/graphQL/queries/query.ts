@@ -1,5 +1,5 @@
 export const typeDef = `
   type Query {
-    findUserById(userId: String): User
+    findPlayerById(userId: String): Player
   }
 `;

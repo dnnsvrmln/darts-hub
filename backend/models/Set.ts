@@ -1,12 +1,12 @@
 import {Leg} from "./Leg";
-import {User} from "./User";
+import {Player} from "./Player";
 
 export class Set {
     private _setId: number;
     private _legs: [Leg]
-    private _winner: User;
+    private _winner: Player;
 
-    constructor(setId: number, legs: [Leg], winner: User) {
+    constructor(setId: number, legs: [Leg], winner: Player) {
         this._setId = setId;
         this._legs = legs;
         this._winner = winner;
@@ -28,11 +28,11 @@ export class Set {
         this._legs = value;
     }
 
-    get winner(): User {
+    get winner(): Player {
         return this._winner;
     }
 
-    set winner(value: User) {
+    set winner(value: Player) {
         this._winner = value;
     }
 }
