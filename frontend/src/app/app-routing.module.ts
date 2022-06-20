@@ -10,6 +10,7 @@ import {ChildDashboardComponent} from "./dashboard/child-dashboard/child-dashboa
 import {PageNotFoundComponent} from "./page-not-found/page-not-found.component";
 import {MatchComponent} from "./match/match.component";
 import {IngameComponent} from "./ingame/ingame.component";
+import {LegComponent} from "./leg/leg.component";
 
 const appRoutes: Routes = [
   { path: "", component: HomeComponent, pathMatch: "full" },
@@ -17,6 +18,7 @@ const appRoutes: Routes = [
   { path: "some-test", component: SomeTestComponent },
   { path: "match", component: MatchComponent },
   { path: "ingame", component: IngameComponent },
+  { path: "score", component: LegComponent },
   { path: "dashboard", component: DashboardComponent, canActivate: [AuthGuard], children: [
       { path: "child-dashboard", component:  ChildDashboardComponent },
     ]

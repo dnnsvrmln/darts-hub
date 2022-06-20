@@ -19,6 +19,7 @@ import {HttpLinkModule} from "apollo-angular-link-http";
 import {GraphQLModule} from "./graphql.module";
 import { IngameComponent } from './ingame/ingame.component';
 import { CreateGameComponent } from './create-game/create-game.component';
+import {LegComponent} from "./leg/leg.component";
 
 @NgModule({
   declarations: [
@@ -33,6 +34,8 @@ import { CreateGameComponent } from './create-game/create-game.component';
     MatchComponent,
     IngameComponent,
     CreateGameComponent
+    PageNotFoundComponent,
+    LegComponent
   ],
   imports: [
     GraphQLModule,
