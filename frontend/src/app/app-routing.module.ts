@@ -19,8 +19,6 @@ const appRoutes: Routes = [
   { path: "ingame", component: IngameComponent },
   { path: "score", component: LegComponent },
   { path: "dashboard", component: DashboardComponent, canActivate: [AuthGuard], children: [
-      // { path: "profile", component:  ProfileComponent },
-      // { path: "statistics", component:  StatisticsComponent },
     ]
   },
   { path: "page-not-found", component: PageNotFoundComponent },
