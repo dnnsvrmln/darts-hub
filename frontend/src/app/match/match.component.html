@@ -1,3 +1,4 @@
 <app-create-game [hidden]="hideCreateGame" (newMatchId)="addMatchId($event)" (newLegId)="addLegId($event)"></app-create-game>
 
-<app-leg [hidden]="hideIngame" [legId]="legId"></app-leg>
+<div id="game"></div>
+<app-leg [hidden]="hideIngame[0]" [legId]="legId[0]"></app-leg>

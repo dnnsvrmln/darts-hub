@@ -18,7 +18,7 @@ import { Output, EventEmitter } from '@angular/core';
 export class CreateGameComponent implements OnInit {
 
   @Output() newMatchId = new EventEmitter<string>();
-  @Output() newLegId = new EventEmitter<string>();
+  @Output() newLegId = new EventEmitter<string[]>();
   matchFunctions: MatchFunctions
   legFunctions: LegFunctions
   constructor(private apollo: Apollo, private router: Router) {
@@ -39,26 +39,26 @@ export class CreateGameComponent implements OnInit {
     const matchType: String = form.value.matchType
     const isSet: boolean = (form.value.legOrSet == 'set')
     let match = new Match();
-    match.matchId = this.matchId;
-    match.date = date;
-    match.totalAmount = totalAmount;
-    match.matchType = matchType;
-    match.isSet = isSet;
+    match.createMatch(this.matchId, date, matchType,totalAmount, isSet)
 
     this.matchFunctions.createMatch(match);
     this.newMatchId.emit(this.matchId);
     localStorage.setItem("playerTwo", form.value.playerTwo);
+    let legIds: string[] = []
+    for(var x = 0; x < totalAmount; x++) {
 
-    let leg = new Leg();
-    const legId: string = Math.random().toString(16).substr(2, 8).toString()
-    const scoreType: String = form.value.scoreType;
-    leg.legId = legId;
-    leg.scoreType = scoreType;
-    this.newLegId.emit(legId);
+      const legId: string = Math.random().toString(16).substr(2, 8).toString()
+      const scoreType: String = form.value.scoreType;
+      let leg = new Leg();
+      leg.createLeg(legId, scoreType)
 
-    await this.legFunctions.createLeg(leg)
-    console.log(this.matchId)
-    console.log(leg.legId)
-    this.legFunctions.addLegToMatch(this.matchId, legId)
+      legIds.push(legId)
+
+      await this.legFunctions.createLeg(leg)
+      console.log("legId "+leg.legId)
+      this.legFunctions.addLegToMatch(this.matchId, legId)
+    }
+
+    this.newLegId.emit(legIds);
   }
 }

@@ -6,6 +6,10 @@ export class Leg {
   private _scoreType: String = '';
   private _turn: Turn = new Turn();
 
+  createLeg(legId: String, scoreType: String){
+    this._legId = legId
+    this._scoreType = scoreType
+  }
 
   get legId(): String {
     return this._legId;

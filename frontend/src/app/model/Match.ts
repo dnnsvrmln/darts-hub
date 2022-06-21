@@ -7,6 +7,14 @@ export class Match {
   private _isSet: Boolean = false;
   private _winner: String = '';
 
+  createMatch(matchId: String, date: Number, matchType: String, totalAmount: Number, isSet: Boolean){
+    this._matchId = matchId
+    this._date = date
+    this._matchType = matchType
+    this._totalAmount = totalAmount
+    this._isSet = isSet
+  }
+
 
   constructor() {
   }

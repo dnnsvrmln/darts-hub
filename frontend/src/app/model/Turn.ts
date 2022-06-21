@@ -7,6 +7,11 @@ export class Turn {
   constructor() {
 
   }
+  createTurn( score:number, multiplier:number, player:String ) {
+    this._score = score
+    this._multiplier = multiplier
+    this._player = player
+  }
 
 
   get score(): Number {

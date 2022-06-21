@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, Output} from '@angular/core';
 import {TurnFunctions} from "../graphqlCalls/TurnFunctions";
 import {PlayerFunctions} from "../graphqlCalls/PlayerFunctions";
 import {Apollo} from "apollo-angular";
@@ -30,6 +30,7 @@ export class LegComponent implements OnInit {
   }
 
   @Input() legId = '';
+  @Output() winners = [];
   turnFunctions: TurnFunctions;
   legFunctions: LegFunctions;
 
@@ -53,6 +54,15 @@ export class LegComponent implements OnInit {
   pointsOne: any;
   pointsTwo: any;
 
+  resetScore(){
+    this.score = 0
+    this.darts = []
+    this.totalPlayerOne = 501;
+    this.totalPlayerTwo = 501;
+    this.turnTotalPlayerOne = 0;
+    this.turnTotalPlayerTwo = 0;
+  }
+
 
   throws:number = 0;
   noteScoreOne(points: number, multiplier: number, player: number){
@@ -60,13 +70,12 @@ export class LegComponent implements OnInit {
     if(this.isValidScore(this.score))
     {
       const turn: Turn = new Turn()
-      turn.score = points
-      turn.multiplier = multiplier
-      turn.player = this.players[player]
+      turn.createTurn(points, multiplier, this.players[player])
       if(multiplier == 2 && this.totalPlayerOne - (points * multiplier) == 0){
         alert(this.players[player] + " has won!")
         this.totalPlayerOne =- (points * multiplier)
         this.legFunctions.finishLeg(this.legId,this.players[player])
+        this.resetScore()
       }
       else if(this.throws != 3) {
         if(this.totalPlayerOne - (points * multiplier) < 2 ){
@@ -97,13 +106,12 @@ export class LegComponent implements OnInit {
     if(this.isValidScore(this.score))
     {
       const turn: Turn = new Turn()
-      turn.score = points
-      turn.multiplier = multiplier
-      turn.player = this.players[player]
+      turn.createTurn(points, multiplier, this.players[player])
       if(multiplier == 2 && this.totalPlayerTwo - (points * multiplier) == 0){
         alert(this.players[player] + " has won!")
         this.totalPlayerTwo =- (points * multiplier)
         this.legFunctions.finishLeg(this.legId,this.players[player])
+        this.resetScore()
       }
       else if(this.throws != 3) {
         if(this.totalPlayerTwo - (points * multiplier) < 2 ){
@@ -276,7 +284,7 @@ export class LegComponent implements OnInit {
   }
 
   resetListboxPlayerOne() {
-  this.dartOnePlayerOne = undefined;
+    this.dartOnePlayerOne = undefined;
     this.dartTwoPlayerOne = undefined;
     this.dartThreePlayerOne = undefined;
   }

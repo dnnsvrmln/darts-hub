@@ -7,6 +7,8 @@ import {MatchFunctions} from "../graphqlCalls/MatchFunctions"
 import {Router} from "@angular/router";
 import {LegFunctions} from "../graphqlCalls/LegFunctions";
 import {Leg} from "../model/Leg";
+import {CreateGameComponent} from "../create-game/create-game.component";
+import {LegComponent} from "../leg/leg.component";
 
 
 @Component({
@@ -19,7 +21,7 @@ export class MatchComponent implements OnInit {
   }
 
   hideCreateGame: boolean = false;
-  hideIngame: boolean = true;
+  hideIngame: boolean[] = [true, true, true];
 
   ngOnInit(): void {
 
@@ -29,15 +31,15 @@ export class MatchComponent implements OnInit {
   addMatchId(matchId: string) {
     this.matchId = matchId;
     if(this.matchId != ""){
-      this.hideIngame = false;
+      this.hideIngame[0] = false;
       this.hideCreateGame = true;
     }
   }
 
-  legId: string = ""
-  addLegId(legId: string) {
+
+  legId: string[] = []
+  addLegId(legId: string[]) {
     this.legId = legId;
   }
-
 
 }
