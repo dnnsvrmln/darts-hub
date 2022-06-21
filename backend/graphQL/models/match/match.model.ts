@@ -6,19 +6,19 @@ export const typeDef = `
     date: Date
     matchType: String
     totalAmount: Int
-    winner: Player,
+    winner: PlayerModel,
     isSet: Boolean
   }
 `;
 
 export const typeDefLeg = `
   extend type MatchModel {
-    leg: [Leg]
+    leg: [LegModel]
   }
 `;
 
 export const typeDefSet = `
   extend type MatchModel {
-    set: [Set]
+    set: [SetModel]
   }
 `;

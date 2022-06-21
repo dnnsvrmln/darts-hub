@@ -11,8 +11,8 @@ import { typeDef as TurnModel } from './models/match/turn.model';
 import { typeDef as PlayerModel} from "./models/player/player.model";
 
 // Mutations
-import { typeDef as UserMutation} from "./mutations/player/player.mutation";
-import { typeDef as MatchMutation} from "./mutations/match/match.mutation";
+import { typeDef as PlayerMutation } from "./mutations/player/player.mutation";
+import { typeDef as MatchMutation } from "./mutations/match/match.mutation";
 import { typeDef as LegMutation } from "./mutations/match/leg.mutation";
 import { typeDef as TurnMutation } from "./mutations/match/turn.mutation";
 
@@ -27,5 +27,5 @@ import { typeDef as Query } from './queries/query';
 import { makeExecutableSchema } from '@graphql-tools/schema'
 
 export const schema = makeExecutableSchema({
-    typeDefs: [ Query, UserMutation, MatchMutation, LegMutation, TurnMutation, SetModel, PlayerModel, MatchLegModel, MatchSetModel, LegModel, TurnModel, ScoreTypeEnum, MatchTypeEnum, MatchModel ]
+    typeDefs: [ Query, PlayerMutation, MatchMutation, LegMutation, TurnMutation, SetModel, PlayerModel, MatchLegModel, MatchSetModel, LegModel, TurnModel, ScoreTypeEnum, MatchTypeEnum, MatchModel ]
 });

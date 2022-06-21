@@ -6,14 +6,12 @@ export class LegModel {
     private _scoreType: String;
     private _turn: TurnModel
 
-
     constructor(legId: String, average: Number, scoreType: String, turn: TurnModel) {
         this._legId = legId;
         this._average = average;
         this._scoreType = scoreType;
         this._turn = turn;
     }
-
 
     get legId(): String {
         return this._legId;

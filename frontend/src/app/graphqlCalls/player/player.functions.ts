@@ -9,9 +9,9 @@ export class PlayerFunctions {
     this.apollo
       .mutate({
         mutation: gql`
-        mutation CreateNewPlayer(playerUID: String, $playerName: String, $email: String){
-          createNewPlayer(playerUID: playerUID, playerName: $playerName, email: $email){
-            playerName
+        mutation CreateNewPlayer($playerUID: String, $playerName: String, $email: String){
+          createNewPlayer(playerUID: $playerUID, playerName: $playerName, email: $email){
+            playerUID
           }
         }
       `,

@@ -22,8 +22,8 @@ export interface AuthResponseBody {
 export class AuthService {
   private static readonly _SIGN_UP_URL = "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyC0jI1vR0Cz8wsxiEmbrNVi9tv-sY39A9A";
   private static readonly _SIGN_IN_URL = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyC0jI1vR0Cz8wsxiEmbrNVi9tv-sY39A9A";
-  private static readonly _LOCAL_STORAGE_KEY = "userDataLocalStorage";
-  private static readonly _SESSION_STORAGE_KEY = "userDataSessionStorage";
+  private static readonly _LOCAL_STORAGE_KEY = "playerDataLocalStorage";
+  private static readonly _SESSION_STORAGE_KEY = "playerDataSessionStorage";
 
   private _playerFunctions: PlayerFunctions;
   public player = new BehaviorSubject<PlayerModel | null>(null);
@@ -32,7 +32,7 @@ export class AuthService {
     this._playerFunctions = new PlayerFunctions(apollo);
   }
 
-  public signUp(displayName: string, email: string, password: string, passwordConfirm: string) {
+  public signUp(displayName: string, email: string, password: string, passwordConfirm: string, rememberMe: boolean) {
     if (!AuthService.isPasswordConfirmed(password, passwordConfirm)) {
       return AuthService.handleErrorResponse("PASSWORD_DO_NOT_MATCH");
     }
@@ -51,15 +51,10 @@ export class AuthService {
           responseData.displayName,
           responseData.email,
           responseData.idToken,
-          +responseData.expiresIn
+          +responseData.expiresIn,
+          rememberMe,
+          false
         );
-        let player = new PlayerModel(
-          responseData.localId,
-          responseData.displayName,
-          responseData.email,
-          responseData.idToken,
-          new Date(new Date().getTime() + (responseData.expiresIn * 1000)))
-        this._playerFunctions.createPlayer(player);
       })
     );
   }
@@ -79,8 +74,16 @@ export class AuthService {
           responseData.email,
           responseData.idToken,
           +responseData.expiresIn,
-          rememberMe
+          rememberMe,
+          true
         );
+      let player = new PlayerModel(
+        responseData.localId,
+        responseData.displayName,
+        responseData.email,
+        responseData.idToken,
+        new Date(new Date().getTime() + (responseData.expiresIn * 1000)))
+      this._playerFunctions.createPlayer(player);
       })
     );
   }
@@ -133,15 +136,15 @@ export class AuthService {
     return throwError(errorMessage);
   }
 
-  private handleAuthentication(playerUID: string, displayName: string, email: string, idToken: string, expiresIn: number, rememberMe?: boolean) {
+  private handleAuthentication(playerUID: string, displayName: string, email: string, idToken: string, expiresIn: number, rememberMe: boolean, isSignInMode: boolean) {
     const expirationDate = new Date(new Date().getTime() + (expiresIn * 1000));
     const player = new PlayerModel(playerUID, displayName, email, idToken, expirationDate);
     this.player.next(player);
 
-    if (rememberMe) {
-      localStorage.setItem("user", JSON.stringify(player));
-    } else {
-      sessionStorage.setItem("user", JSON.stringify(player));
+    if ((isSignInMode) && (rememberMe)) {
+      localStorage.setItem(AuthService._LOCAL_STORAGE_KEY, JSON.stringify(player));
+    } else if ((isSignInMode) && (!rememberMe)) {
+      sessionStorage.setItem(AuthService._SESSION_STORAGE_KEY, JSON.stringify(player));
     }
   }
 

@@ -52,14 +52,19 @@ export class AuthComponent implements OnInit {
       const passwordSignUp = form.value.passwordSignUp;
       const passwordConfirmSignUp = form.value.passwordConfirmSignUp;
 
-      authObservable = this.authService.signUp(displayNameSignUp, emailSignUp, passwordSignUp, passwordConfirmSignUp);
+      authObservable = this.authService.signUp(displayNameSignUp, emailSignUp, passwordSignUp, passwordConfirmSignUp, false);
     }
 
     authObservable.subscribe(
       responseBody => {
         console.log(responseBody);
         this.isLoading = false;
-        this.router.navigate(['/dashboard']);
+
+        if (this.isSignInMode) {
+          this.router.navigate(['/dashboard']);
+        } else {
+          this.router.navigate(['/auth']);
+        }
       },
       responseError => {
         console.log(responseError);

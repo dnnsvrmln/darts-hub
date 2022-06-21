@@ -1,4 +1,3 @@
-
 export class MatchModel {
     private _matchId: String = '';
     private _date: Number = 0;
@@ -6,7 +5,6 @@ export class MatchModel {
     private _totalAmount: Number = 0;
     private _isSet: Boolean = false;
     private _winner: String = '';
-
 
     constructor() {
     }

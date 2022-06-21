@@ -3,6 +3,6 @@ export const typeDef = `
     legId: String
     average: Float
     scoreType: String
-    turn: [Turn]
+    turn: [TurnModel]
   }    
 `

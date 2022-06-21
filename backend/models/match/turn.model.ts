@@ -4,8 +4,7 @@ export class TurnModel {
     private _turnId: String;
     private _score: number;
     private _player: PlayerModel;
-
-
+    
     constructor(turnId: String, score: number, player: PlayerModel) {
         this._turnId = turnId;
         this._score = score;

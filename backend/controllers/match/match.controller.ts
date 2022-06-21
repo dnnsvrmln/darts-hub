@@ -1,7 +1,6 @@
-import getDB from "../initializeFirebase";
+import getDB from "../../initializeFirebase";
 import {firestore} from "firebase-admin";
 import FieldValue = firestore.FieldValue;
-
 
 export function createNewMatch(matchId: string, date: number, totalAmount: number, matchType: string, isSet: boolean ){
 console.log(matchId)
@@ -13,7 +12,6 @@ console.log(matchId)
         totalAmount: totalAmount,
         matchType: matchType
     })
-
 }
 
 export async function addLegToMatch(legId:string, matchId: string){

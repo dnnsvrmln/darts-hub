@@ -1,4 +1,4 @@
-import getDB from "../initializeFirebase";
+import getDB from "../../initializeFirebase";
 
 // export function findUserById(userId: string){
 //     var user : PlayerModel = new PlayerModel();
@@ -11,7 +11,7 @@ import getDB from "../initializeFirebase";
 
 export function createNewPlayer(playerUID: string, playerName: string, email: string) {
     const db = getDB()
-    const ref = db.collection('Players');
+    const ref = db.collection('Player');
     ref.doc(playerUID).set({
         playerUID: playerUID,
         playerName: playerName,

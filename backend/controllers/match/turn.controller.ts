@@ -1,4 +1,4 @@
-import getDB from "../initializeFirebase";
+import getDB from "../../initializeFirebase";
 
 export async function createNewTurn(turnId: string, points: number, multiplier: number, player: string) {
     console.log(turnId)
