@@ -52,9 +52,15 @@ export class AuthService {
           responseData.email,
           responseData.idToken,
           +responseData.expiresIn,
-          rememberMe,
-          false
+          rememberMe
         );
+      let player = new PlayerModel(
+        responseData.localId,
+        responseData.displayName,
+        responseData.email,
+        responseData.idToken,
+        new Date(new Date().getTime() + (responseData.expiresIn * 1000)))
+      this._playerFunctions.createPlayer(player);
       })
     );
   }
@@ -74,16 +80,8 @@ export class AuthService {
           responseData.email,
           responseData.idToken,
           +responseData.expiresIn,
-          rememberMe,
-          true
+          rememberMe
         );
-      let player = new PlayerModel(
-        responseData.localId,
-        responseData.displayName,
-        responseData.email,
-        responseData.idToken,
-        new Date(new Date().getTime() + (responseData.expiresIn * 1000)))
-      this._playerFunctions.createPlayer(player);
       })
     );
   }
@@ -100,6 +98,44 @@ export class AuthService {
       localStorage.removeItem(AuthService._LOCAL_STORAGE_KEY);
     } else {
       sessionStorage.removeItem(AuthService._SESSION_STORAGE_KEY);
+    }
+  }
+
+  private handleAuthentication(playerUID: string, displayName: string, email: string, idToken: string, expiresIn: number, rememberMe: boolean) {
+    const expirationDate = new Date(new Date().getTime() + (expiresIn * 1000));
+    const player = new PlayerModel(playerUID, displayName, email, idToken, expirationDate);
+    this.player.next(player);
+
+    if (rememberMe) {
+      localStorage.setItem(AuthService._LOCAL_STORAGE_KEY, JSON.stringify(player));
+    } else {
+      sessionStorage.setItem(AuthService._SESSION_STORAGE_KEY, JSON.stringify(player));
+    }
+  }
+
+  private handleAutoSignIn() {
+    const userData: {
+      playerUID: string;
+      displayName: string;
+      email: string;
+      _token: string;
+      _tokenExpirationDate: string;
+    } = JSON.parse(localStorage.getItem(AuthService._LOCAL_STORAGE_KEY)!);
+
+    if (!userData) {
+      return;
+    }
+
+    const loadedUser = new PlayerModel(
+      userData.playerUID,
+      userData.displayName,
+      userData.email,
+      userData._token,
+      new Date(userData._tokenExpirationDate)
+    );
+
+    if (loadedUser.token) {
+      this.player.next(loadedUser);
     }
   }
 
@@ -134,43 +170,5 @@ export class AuthService {
         errorMessage = "Oops! An unknown error occurred."
     }
     return throwError(errorMessage);
-  }
-
-  private handleAuthentication(playerUID: string, displayName: string, email: string, idToken: string, expiresIn: number, rememberMe: boolean, isSignInMode: boolean) {
-    const expirationDate = new Date(new Date().getTime() + (expiresIn * 1000));
-    const player = new PlayerModel(playerUID, displayName, email, idToken, expirationDate);
-    this.player.next(player);
-
-    if ((isSignInMode) && (rememberMe)) {
-      localStorage.setItem(AuthService._LOCAL_STORAGE_KEY, JSON.stringify(player));
-    } else if ((isSignInMode) && (!rememberMe)) {
-      sessionStorage.setItem(AuthService._SESSION_STORAGE_KEY, JSON.stringify(player));
-    }
-  }
-
-  private handleAutoSignIn() {
-    const userData: {
-      playerUID: string;
-      displayName: string;
-      email: string;
-      _token: string;
-      _tokenExpirationDate: string;
-    } = JSON.parse(localStorage.getItem(AuthService._LOCAL_STORAGE_KEY)!);
-
-    if (!userData) {
-      return;
-    }
-
-    const loadedUser = new PlayerModel(
-      userData.playerUID,
-      userData.displayName,
-      userData.email,
-      userData._token,
-      new Date(userData._tokenExpirationDate)
-    );
-
-    if (loadedUser.token) {
-      this.player.next(loadedUser);
-    }
   }
 }
