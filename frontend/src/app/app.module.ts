@@ -19,6 +19,8 @@ import { MatchComponent } from "./match/match.component";
 import { IngameComponent } from './ingame/ingame.component';
 import { CreateGameComponent } from './create-game/create-game.component';
 import { LegComponent } from "./leg/leg.component";
+import { ProfileComponent } from './dashboard/profile/profile.component';
+import { StatisticsComponent } from './dashboard/statistics/statistics.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,9 @@ import { LegComponent } from "./leg/leg.component";
     IngameComponent,
     CreateGameComponent,
     PageNotFoundComponent,
-    LegComponent
+    LegComponent,
+    ProfileComponent,
+    StatisticsComponent
   ],
   imports: [
     GraphQLModule,
