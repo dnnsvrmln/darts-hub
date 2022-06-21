@@ -14,8 +14,6 @@ import { AppRoutingModule } from "./app-routing.module";
 import { SomeTestComponent } from './some-test/some-test.component';
 import { HomeComponent } from './home/home.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { ProfileComponent } from './dashboard/profile/profile.component';
-import { StatisticsComponent } from './dashboard/statistics/statistics.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { MatchComponent } from "./match/match.component";
 import { IngameComponent } from './ingame/ingame.component';
@@ -30,8 +28,6 @@ import { LegComponent } from "./leg/leg.component";
     SomeTestComponent,
     HomeComponent,
     DashboardComponent,
-    ProfileComponent,
-    StatisticsComponent,
     PageNotFoundComponent,
     MatchComponent,
     IngameComponent,
