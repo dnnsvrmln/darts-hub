@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>LegModel</title>
+</head>
+<body>
+<div class="row">
+  <div class="player">
+    <h1><span id="total-p1">{{totalPlayerOne}}</span></h1>
+    <label>Score</label>
+    <input id="score-p1" max="25" min="0" [(ngModel)]="pointsOne"
+           name="score-p1" type="number">
+    <br><br>
+    <button (click)="noteScoreOne(pointsOne, 1, 0)" type="button">Single</button>
+    <button (click)="noteScoreOne(pointsOne, 2, 0)" type="button">Double</button>
+    <button (click)="noteScoreOne(pointsOne, 3, 0)" type="button">Triple</button>
+    <br><br>
+    <select multiple="multiple" name="darts-list-p1" size="3">
+      <option value="dart1-p1">{{dartOnePlayerOne}}</option>
+      <option value="dart2-p1">{{dartTwoPlayerOne}}</option>
+      <option value="dart3-p1">{{dartThreePlayerOne}}</option>
+    </select>
+    <br><br>
+    <button (click)="endTurnPlayerOne()" type="button">End turn</button>
+  </div>
+
+  <div class="player">
+    <h1><span id="total-p2">{{totalPlayerTwo}}</span></h1>
+    <label>Score</label>
+    <input id="score-p2" max="25" min="0" [(ngModel)]="pointsTwo"
+           name="score-p2" type="number">
+    <br><br>
+    <button (click)="noteScoreTwo(pointsTwo, 1, 1)" type="button">Single</button>
+    <button (click)="noteScoreTwo(pointsTwo, 2, 1)" type="button">Double</button>
+    <button (click)="noteScoreTwo(pointsTwo, 3, 1)" type="button">Triple</button>
+    <br><br>
+    <select multiple="multiple" name="darts-list-p2" size="3">
+      <option value="dart1-p2">{{dartOnePlayerTwo}}</option>
+      <option value="dart2-p2">{{dartTwoPlayerTwo}}</option>
+      <option value="dart3-p2">{{dartThreePlayerTwo}}</option>
+    </select>
+    <br><br>
+    <button (click)="endTurnPlayerTwo()" type="button">End turn</button>
+  </div>
+</div>
+</body>
+</html>

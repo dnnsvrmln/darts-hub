@@ -18,6 +18,3 @@ export function createNewPlayer(player:Player ){
         email: player.email,
         localId: player.localId
     });
-
-
-}

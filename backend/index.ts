@@ -2,10 +2,10 @@ import express, { Express } from 'express';
 import dotenv from 'dotenv';
 import {graphqlHTTP} from "express-graphql";
 import {schema} from "./graphQL/schema";
-import {createNewPlayer} from "./controllers/playerController";
-import {addLegToMatch, addSetToMatch, createNewMatch} from "./controllers/matchController";
-import {createNewTurn} from "./controllers/turnController";
-import {addTurnToLeg, createNewLeg, finishLeg} from "./controllers/legController";
+import {createNewPlayer} from "./controllers/player/player.controller";
+import {addLegToMatch, addSetToMatch, createNewMatch} from "./controllers/match/match.controller";
+import {createNewTurn} from "./controllers/match/turn.controller";
+import {addTurnToLeg, createNewLeg, finishLeg} from "./controllers/match/leg.controller";
 import {Player} from "./models/Player";
 import {Match} from "./models/Match";
 var cors = require('cors')
@@ -23,7 +23,7 @@ app.use(cors())
 const resolvers = {
     createNewPlayer(args: any){
         let player: Player = new Player();
-        player.createPlayer(args.playerName, args.email, args.localId)
+        player.createPlayer(args.playerUID, args.playerName, args.email)
         return createNewPlayer(player)
     },
     createNewMatch (args: any){

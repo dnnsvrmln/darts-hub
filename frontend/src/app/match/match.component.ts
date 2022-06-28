@@ -17,11 +17,10 @@ import {LegComponent} from "../leg/leg.component";
   styleUrls: ['./match.component.css']
 })
 export class MatchComponent implements OnInit {
-  constructor(private apollo: Apollo, private router: Router) {
-  }
-
   hideCreateGame: boolean = false;
   hideIngame: boolean[] = [true, true, true];
+
+  constructor() {}
 
   ngOnInit(): void {
 
