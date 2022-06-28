@@ -4,7 +4,7 @@ import 'firebase/compat/auth';
 const { getFirestore } = require('firebase-admin/firestore');
 
 var admin = require("firebase-admin");
-var serviceAccount = require("/Users/dennisvermeulenprivate/Projects/darts-hub-firebase-admin/darts-hub-firebase-adminsdk-8vd6h-e2cdbdac4e.json");
+var serviceAccount = require("/Users/joep/darts-hub-firebase-adminsdk.json");
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),

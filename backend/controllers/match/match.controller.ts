@@ -1,9 +1,9 @@
 import getDB from "../../initializeFirebase";
 import {firestore} from "firebase-admin";
 import FieldValue = firestore.FieldValue;
-import {Match} from "../models/Match";
+import {MatchModel} from "../../models/match/match.model";
 
-export function createNewMatch(match:Match){
+export function createNewMatch(match:MatchModel){
     const db = getDB()
     const ref = db.collection('Match');
     ref.doc(match.matchId).set({

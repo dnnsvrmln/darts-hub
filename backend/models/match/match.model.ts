@@ -1,10 +1,12 @@
+import {PlayerModel} from "../player/player.model";
+
 export class MatchModel {
     protected _matchId: string = '';
     protected _date: number = 0;
     protected _matchType: string = '';
     protected _totalAmount: number = 0;
     protected _isSet: boolean = false;
-    protected _winner: string = '';
+    protected _winner: PlayerModel | undefined;
 
     constructor() {
     }
@@ -49,11 +51,11 @@ export class MatchModel {
         this._isSet = value;
     }
 
-    get winner(): string {
-        return this._winner;
+    get winner(): PlayerModel {
+        return <PlayerModel>this._winner;
     }
 
-    set winner(value: string) {
+    set winner(value: PlayerModel) {
         this._winner = value;
     }
 

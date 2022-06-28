@@ -6,8 +6,9 @@ import {createNewPlayer} from "./controllers/player/player.controller";
 import {addLegToMatch, addSetToMatch, createNewMatch} from "./controllers/match/match.controller";
 import {createNewTurn} from "./controllers/match/turn.controller";
 import {addTurnToLeg, createNewLeg, finishLeg} from "./controllers/match/leg.controller";
-import {Player} from "./models/Player";
-import {Match} from "./models/Match";
+import {PlayerModel} from "./models/player/player.model";
+import {MatchModel} from "./models/match/match.model";
+
 var cors = require('cors')
 dotenv.config();
 
@@ -22,12 +23,12 @@ app.use(cors())
 
 const resolvers = {
     createNewPlayer(args: any){
-        let player: Player = new Player();
+        let player: PlayerModel = new PlayerModel();
         player.createPlayer(args.playerUID, args.playerName, args.email)
         return createNewPlayer(player)
     },
     createNewMatch (args: any){
-        let match: Match = new Match();
+        let match: MatchModel = new MatchModel();
         match.createNewMatch(args.matchId, args.date, args.totalAmount, args.matchType, args.isSet)
         return createNewMatch(match)
     },

@@ -1,15 +1,7 @@
-export class Player {
+export class PlayerModel {
     protected _playerName: string = ""
     protected _email: string = ""
     protected _localId: string = ""
-
-    get playerUID(): string {
-        return this._playerUID;
-    }
-
-    set playerUID(value: string) {
-        this._playerUID = value;
-    }
 
     get playerName(): string {
         return this._playerName;

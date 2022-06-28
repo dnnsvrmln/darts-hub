@@ -1,4 +1,5 @@
 import getDB from "../../initializeFirebase";
+import {PlayerModel} from "../../models/player/player.model";
 
 // export function findUserById(userId: string){
 //     var user : PlayerModel = new PlayerModel();
@@ -9,12 +10,11 @@ import getDB from "../../initializeFirebase";
 //     return user;
 // }
 
-export function createNewPlayer(playerUID: string, playerName: string, email: string) {
+export function createNewPlayer(player:PlayerModel ) {
     const db = getDB()
-    const ref = db.collection('Player');
-    ref.doc(playerUID).set({
-        playerUID: playerUID,
-        playerName: playerName,
-        email: email
+    const ref = db.collection('Players');
+    ref.doc(player.playerName).set({
+        email: player.email,
+        localId: player.localId
     });
 }
