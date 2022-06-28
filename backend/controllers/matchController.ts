@@ -1,17 +1,17 @@
 import getDB from "../initializeFirebase";
 import {firestore} from "firebase-admin";
 import FieldValue = firestore.FieldValue;
+import {Match} from "../models/Match";
 
 
-export function createNewMatch(matchId: string, date: number, totalAmount: number, matchType: string, isSet: boolean ){
-console.log(matchId)
+export function createNewMatch(match:Match){
     const db = getDB()
     const ref = db.collection('Match');
-    ref.doc(matchId).set({
-        matchId: matchId,
-        date: date,
-        totalAmount: totalAmount,
-        matchType: matchType
+    ref.doc(match.matchId).set({
+        matchId: match.matchId,
+        date: match.date,
+        totalAmount: match.totalAmount,
+        matchType: match.matchType
     })
 
 }

@@ -1,6 +1,5 @@
 import {Match} from "./Match";
 import {Set} from "./Set";
-import {Player} from "./Player";
 
 export class MatchSet extends Match{
     private _set: Set[] = [];
@@ -12,5 +11,14 @@ export class MatchSet extends Match{
 
     set set(value: Set[]) {
         this._set = value;
+    }
+
+    createMatchSet(matchId: string, date: number, matchType:string, totalAmount:number, isSet:boolean, sets: Set[]){
+        this._matchId = matchId;
+        this._date = date
+        this._matchType = matchType
+        this._totalAmount = totalAmount;
+        this._isSet = isSet;
+        this._set = sets
     }
 }

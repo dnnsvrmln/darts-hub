@@ -1,61 +1,69 @@
 
 export class Match {
-    private _matchId: String = '';
-    private _date: Number = 0;
-    private _matchType: String = '';
-    private _totalAmount: Number = 0;
-    private _isSet: Boolean = false;
-    private _winner: String = '';
+    protected _matchId: string = '';
+    protected _date: number = 0;
+    protected _matchType: string = '';
+    protected _totalAmount: number = 0;
+    protected _isSet: boolean = false;
+    protected _winner: string = '';
 
 
     constructor() {
     }
 
-    get matchId(): String {
+    get matchId(): string {
         return this._matchId;
     }
 
-    set matchId(value: String) {
+    set matchId(value: string) {
         this._matchId = value;
     }
 
-    get date(): Number {
+    get date(): number {
         return this._date;
     }
 
-    set date(value: Number) {
+    set date(value: number) {
         this._date = value;
     }
 
-    get matchType(): String {
+    get matchType(): string {
         return this._matchType;
     }
 
-    set matchType(value: String) {
+    set matchType(value: string) {
         this._matchType = value;
     }
 
-    get totalAmount(): Number {
+    get totalAmount(): number {
         return this._totalAmount;
     }
 
-    set totalAmount(value: Number) {
+    set totalAmount(value: number) {
         this._totalAmount = value;
     }
 
-    get isSet(): Boolean {
+    get isSet(): boolean {
         return this._isSet;
     }
 
-    set isSet(value: Boolean) {
+    set isSet(value: boolean) {
         this._isSet = value;
     }
 
-    get winner(): String {
+    get winner(): string {
         return this._winner;
     }
 
-    set winner(value: String) {
+    set winner(value: string) {
         this._winner = value;
+    }
+
+    createNewMatch(matchId: string, date: number, matchType: string, totalAmount:number, isSet: boolean){
+        this._matchId = matchId
+        this._date = date
+        this._matchType = matchType
+        this._totalAmount = totalAmount
+        this._isSet = isSet
     }
 }

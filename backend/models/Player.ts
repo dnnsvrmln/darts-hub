@@ -1,9 +1,7 @@
 export class Player {
-    constructor(
-        public _playerName: string,
-        public _email: string,
-        public _localId: string
-    ) {}
+    protected _playerName: string = ""
+    protected _email: string = ""
+    protected _localId: string = ""
 
 
     get playerName(): string {
@@ -28,5 +26,11 @@ export class Player {
 
     set localId(value: string) {
         this._localId = value;
+    }
+
+    createPlayer(playerName: string, email: string, localId: string){
+        this._playerName = playerName;
+        this._email = email;
+        this._localId = localId;
     }
 }

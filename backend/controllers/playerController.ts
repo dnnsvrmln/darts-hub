@@ -11,12 +11,12 @@ import {Player} from "../models/Player";
 //     return user;
 // }
 
-export function createNewPlayer(playerName: string, email: string, localId: string ){
+export function createNewPlayer(player:Player ){
     const db = getDB()
     const ref = db.collection('Players');
-    ref.doc(playerName).set({
-        email: email,
-        localId: localId
+    ref.doc(player.playerName).set({
+        email: player.email,
+        localId: player.localId
     });
 
 
