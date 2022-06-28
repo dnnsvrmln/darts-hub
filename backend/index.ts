@@ -2,12 +2,13 @@ import express, { Express } from 'express';
 import dotenv from 'dotenv';
 import {graphqlHTTP} from "express-graphql";
 import {schema} from "./graphQL/schema";
-import {createNewPlayer} from "./controllers/playerController";
-import {addLegToMatch, addSetToMatch, createNewMatch} from "./controllers/matchController";
-import {createNewTurn} from "./controllers/turnController";
-import {addTurnToLeg, createNewLeg, finishLeg} from "./controllers/legController";
-import {Player} from "./models/Player";
-import {Match} from "./models/Match";
+import {PlayerModel} from "./models/player/player.model";
+import {MatchModel} from "./models/match/match.model";
+import {addLegToMatch, addSetToMatch, createNewMatch} from "./controllers/match/match.controller";
+import {createNewTurn} from "./controllers/match/turn.controller";
+import {addTurnToLeg, createNewLeg, finishLeg} from "./controllers/match/leg.controller";
+import {createNewPlayer} from "./controllers/player/player.controller";
+
 var cors = require('cors')
 dotenv.config();
 

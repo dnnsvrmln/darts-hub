@@ -1,5 +1,6 @@
 import {Apollo, gql} from "apollo-angular";
-import {LegModel} from "../../model/match/leg.model";
+import {LegModel} from "../../match/leg/leg.model";
+
 
 export class LegFunctions {
 

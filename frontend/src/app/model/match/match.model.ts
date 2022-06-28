@@ -1,5 +1,5 @@
 
-export class Match {
+export class MatchModel {
   private _matchId: String = '';
   private _date: Number = 0;
   private _matchType: String = '';

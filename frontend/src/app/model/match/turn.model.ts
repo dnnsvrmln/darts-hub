@@ -1,4 +1,4 @@
-export class Turn {
+export class TurnModel {
     private _score: Number = 0;
     private _multiplier: Number = 0;
     private _player: String = "";

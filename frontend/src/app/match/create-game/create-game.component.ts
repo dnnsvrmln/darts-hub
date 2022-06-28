@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import {NgForm} from "@angular/forms";
-import {Match} from "../model/Match";
-import {Leg} from "../model/Leg";
-import {MatchFunctions} from "../graphqlCalls/MatchFunctions";
-import {LegFunctions} from "../graphqlCalls/LegFunctions";
+import {MatchModel} from "../../model/match/match.model";
 import {Apollo} from "apollo-angular";
 import {Router} from "@angular/router";
 import { Output, EventEmitter } from '@angular/core';
+import {MatchFunctions} from "../../graphqlCalls/match/match.functions";
+import {LegFunctions} from "../../graphqlCalls/match/leg.functions";
+import {LegModel} from "../leg/leg.model";
 
 @Component({
   selector: 'app-create-game',
@@ -49,7 +49,7 @@ export class CreateGameComponent implements OnInit {
 
       const legId: string = Math.random().toString(16).substr(2, 8).toString()
       const scoreType: String = form.value.scoreType;
-      let leg = new Leg();
+      let leg = new LegModel();
       leg.createLeg(legId, scoreType)
 
       legIds.push(legId)

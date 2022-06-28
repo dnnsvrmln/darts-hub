@@ -107,9 +107,9 @@ export class AuthService {
     this.player.next(player);
 
     if (rememberMe) {
-      localStorage.setItem(AuthService._LOCAL_STORAGE_KEY, JSON.stringify(player));
+      localStorage.setItem("user", JSON.stringify(player));
     } else {
-      sessionStorage.setItem(AuthService._SESSION_STORAGE_KEY, JSON.stringify(player));
+      sessionStorage.setItem("user", JSON.stringify(player));
     }
   }
 

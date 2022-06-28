@@ -1,18 +1,47 @@
-import {PlayerModel} from "../../model/player/player.model";
+import {TurnModel} from "../../model/match/turn.model";
 
 export class LegModel {
-  constructor(
-    public turnId: string,
-    public score: number,
-    public player: PlayerModel,
-    private _token: string,
-    private _tokenExpirationDate: Date
-  ) {}
+  private _legId: String = '';
+  private _average: Number = 0;
+  private _scoreType: String = '';
+  private _turn: TurnModel = new TurnModel();
 
-  get token() {
-    if (!this._tokenExpirationDate || new Date() > this._tokenExpirationDate) {
-      return null;
-    }
-    return this._token;
+  createLeg(legId: String, scoreType: String){
+    this._legId = legId
+    this._scoreType = scoreType
   }
+
+  get legId(): String {
+    return this._legId;
+  }
+
+  set legId(value: String) {
+    this._legId = value;
+  }
+
+  get average(): Number {
+    return this._average;
+  }
+
+  set average(value: Number) {
+    this._average = value;
+  }
+
+  get scoreType(): String {
+    return this._scoreType;
+  }
+
+  set scoreType(value: String) {
+    this._scoreType = value;
+  }
+
+  get turn(): TurnModel {
+    return this._turn;
+  }
+
+  set turn(value: TurnModel) {
+    this._turn = value;
+  }
+
 }
+

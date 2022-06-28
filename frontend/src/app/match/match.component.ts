@@ -1,14 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {NgForm} from "@angular/forms";
 import { Apollo, gql } from 'apollo-angular';
-import {GraphQLEnumType} from "graphql";
-import {Match} from "../model/Match";
-import {MatchFunctions} from "../graphqlCalls/MatchFunctions"
 import {Router} from "@angular/router";
-import {LegFunctions} from "../graphqlCalls/LegFunctions";
-import {Leg} from "../model/Leg";
-import {CreateGameComponent} from "../create-game/create-game.component";
-import {LegComponent} from "../leg/leg.component";
+
 
 
 @Component({

@@ -1,4 +1,4 @@
-import getDB from "../initializeFirebase";
+import getDB from "../../initializeFirebase";
 import {firestore} from "firebase-admin";
 import FieldValue = firestore.FieldValue;
 import {MatchModel} from "../../models/match/match.model";
