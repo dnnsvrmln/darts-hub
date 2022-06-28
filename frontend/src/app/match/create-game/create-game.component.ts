@@ -3,10 +3,10 @@ import {Output, EventEmitter} from '@angular/core';
 import {Apollo} from "apollo-angular";
 
 import {NgForm} from "@angular/forms";
-import {MatchModel} from "../model/match/match.model";
-import {LegModel} from "../model/match/leg.model";
-import {MatchFunctions} from "../graphqlCalls/match/match.functions";
-import {LegFunctions} from "../graphqlCalls/match/leg.functions";
+import {MatchModel} from "../../model/match/match.model";
+import {LegModel} from "../../model/match/leg.model";
+import {MatchFunctions} from "../../graphqlCalls/match/match.functions";
+import {LegFunctions} from "../../graphqlCalls/match/leg.functions";
 
 @Component({
   selector: 'app-create-game',
@@ -30,9 +30,9 @@ export class CreateGameComponent implements OnInit {
   matchId: string = ""
 
   async submitForm(form: NgForm) {
-    const userString: any = JSON.parse(sessionStorage.getItem("user")!);
-    console.log(userString['playerName'])
-    // const userName: String = userString[];
+    const playerString: any = JSON.parse(localStorage.getItem("playerDataLocalStorage")!);
+    console.log(playerString['playerName'])
+    // const userName: String = playerString[];
     this.matchId = Math.random().toString(16).substr(2, 8).toString()
     const date: Number = Date.now()
     const totalAmount: Number = parseInt(form.value.totalNumber)

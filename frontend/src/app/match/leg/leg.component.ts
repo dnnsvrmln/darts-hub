@@ -1,8 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {TurnFunctions} from "../graphqlCalls/match/turn.functions";
+import {TurnFunctions} from "../../graphqlCalls/match/turn.functions";
 import {Apollo} from "apollo-angular";
-import {TurnModel} from "../model/match/turn.model";
-import {LegFunctions} from "../graphqlCalls/match/leg.functions";
+import {TurnModel} from "../../model/match/turn.model";
+import {LegFunctions} from "../../graphqlCalls/match/leg.functions";
 
 @Component({
   selector: 'app-leg',

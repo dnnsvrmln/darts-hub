@@ -1,4 +1,4 @@
-import {PlayerModel} from "../model/player/player.model";
+import {PlayerModel} from "../../model/player/player.model";
 
 export class LegModel {
   constructor(

@@ -11,10 +11,10 @@
         <a routerLink="" style="color: #FFFFFF" class="nav-link text-decoration-none">Home</a>
       </li>
       <li routerLinkActive="active" class="nav-item">
-        <a routerLink="/some-test" style="color: #FFFFFF" class="nav-link text-decoration-none">Some Test</a>
+        <a routerLink="/match" style="color: #FFFFFF" class="nav-link text-decoration-none">Match</a>
       </li>
       <li routerLinkActive="active" class="nav-item">
-        <a routerLink="/score" style="color: #FFFFFF" class="nav-link text-decoration-none">New leg</a>
+        <a routerLink="/dashboard" style="color: #FFFFFF" class="nav-link text-decoration-none" *ngIf="isAuthenticated">Dashboard</a>
       </li>
       <li class="nav-item nav-pills">
         <a routerLink="/auth" style="color: #FFFFFF" class="nav-link active" *ngIf="isAuthenticated" (click)="onSignOut()">Sign Out</a>

@@ -16,9 +16,9 @@ import { HomeComponent } from './home/home.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { MatchComponent } from "./match/match.component";
-import { IngameComponent } from './ingame/ingame.component';
-import { CreateGameComponent } from './create-game/create-game.component';
-import { LegComponent } from "./leg/leg.component";
+import { IngameComponent } from './match/ingame/ingame.component';
+import { CreateGameComponent } from './match/create-game/create-game.component';
+import { LegComponent } from "./match/leg/leg.component";
 import { ProfileComponent } from './dashboard/profile/profile.component';
 import { StatisticsComponent } from './dashboard/statistics/statistics.component';
 

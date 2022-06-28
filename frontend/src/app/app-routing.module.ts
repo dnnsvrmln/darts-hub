@@ -9,8 +9,8 @@ import {StatisticsComponent} from "./dashboard/statistics/statistics.component";
 import {SomeTestComponent} from "./some-test/some-test.component";
 import {PageNotFoundComponent} from "./page-not-found/page-not-found.component";
 import {MatchComponent} from "./match/match.component";
-import {IngameComponent} from "./ingame/ingame.component";
-import {LegComponent} from "./leg/leg.component";
+import {IngameComponent} from "./match/ingame/ingame.component";
+import {LegComponent} from "./match/leg/leg.component";
 import {AuthGuard} from "./auth/auth.guard";
 
 const appRoutes: Routes = [
