@@ -1,4 +1,4 @@
-import getDB from "../../initializeFirebase";
+import getDB from "../initializeFirebase";
 import {firestore} from "firebase-admin";
 import FieldValue = firestore.FieldValue;
 import {MatchModel} from "../../models/match/match.model";
@@ -12,6 +12,7 @@ export function createNewMatch(match:MatchModel){
         totalAmount: match.totalAmount,
         matchType: match.matchType
     })
+
 }
 
 export async function addLegToMatch(legId:string, matchId: string){

@@ -1,6 +1,6 @@
-import {TurnModel} from "./turn.model";
+import {Turn} from "./Turn";
 
-export class LegModel {
+export class Leg {
   private _legId: String = '';
   private _average: Number = 0;
   private _scoreType: String = '';
@@ -35,11 +35,11 @@ export class LegModel {
     this._scoreType = value;
   }
 
-  get turn(): TurnModel {
+  get turn(): Turn {
     return this._turn;
   }
 
-  set turn(value: TurnModel) {
+  set turn(value: Turn) {
     this._turn = value;
   }
 }

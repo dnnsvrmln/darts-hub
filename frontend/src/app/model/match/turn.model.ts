@@ -1,4 +1,4 @@
-export class TurnModel {
+export class Turn {
     private _score: Number = 0;
     private _multiplier: Number = 0;
     private _player: String = "";
@@ -10,7 +10,6 @@ export class TurnModel {
     this._player = player
   }
 
-  constructor() {}
 
   get score(): Number {
     return this._score;
