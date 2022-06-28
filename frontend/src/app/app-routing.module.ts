@@ -2,15 +2,16 @@ import {NgModule} from "@angular/core";
 import {RouterModule, Routes} from "@angular/router";
 
 import {AuthComponent} from "./auth/auth.component";
-import {DashboardComponent} from "./dashboard/dashboard.component";
 import {HomeComponent} from "./home/home.component";
+import {DashboardComponent} from "./dashboard/dashboard.component";
+import {ProfileComponent} from "./dashboard/profile/profile.component";
+import {StatisticsComponent} from "./dashboard/statistics/statistics.component";
 import {SomeTestComponent} from "./some-test/some-test.component";
-import {AuthGuard} from "./auth/auth.guard";
-import {ChildDashboardComponent} from "./dashboard/child-dashboard/child-dashboard.component";
 import {PageNotFoundComponent} from "./page-not-found/page-not-found.component";
 import {MatchComponent} from "./match/match.component";
-import {IngameComponent} from "./ingame/ingame.component";
-import {LegComponent} from "./leg/leg.component";
+import {IngameComponent} from "./match/ingame/ingame.component";
+import {LegComponent} from "./match/leg/leg.component";
+import {AuthGuard} from "./auth/auth.guard";
 
 const appRoutes: Routes = [
   { path: "", component: HomeComponent, pathMatch: "full" },
@@ -20,7 +21,8 @@ const appRoutes: Routes = [
   { path: "ingame", component: IngameComponent },
   { path: "score", component: LegComponent },
   { path: "dashboard", component: DashboardComponent, canActivate: [AuthGuard], children: [
-      { path: "child-dashboard", component:  ChildDashboardComponent },
+      { path: "profile", component: ProfileComponent },
+      { path: "statistics", component: StatisticsComponent }
     ]
   },
   { path: "page-not-found", component: PageNotFoundComponent },
